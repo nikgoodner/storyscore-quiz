@@ -176,6 +176,9 @@ async function logToNotion(
       Source: {
         select: { name: "StoryScore Quiz" },
       },
+      "Has Email": {
+        checkbox: true,
+      },
     },
   });
 }

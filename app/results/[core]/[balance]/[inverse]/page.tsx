@@ -1,4 +1,5 @@
 import { FloatingHead } from "@/components/floating-head";
+import { ResultsCompletionLogger } from "@/components/results-completion-logger";
 import { ResultsActions } from "@/components/results-actions";
 import { ResultsGrid } from "@/components/results-grid";
 import { ResultsDownloadStoryscore } from "@/components/results-download-storyscore";
@@ -66,6 +67,7 @@ export default async function ResultsPage({ params }: ResultsPageProps) {
 
   return (
     <div className="relative flex min-h-[100dvh] flex-col overflow-x-hidden bg-white text-storyscore-red">
+      <ResultsCompletionLogger core={core} balance={balance} inverse={inverse} />
       <header className="absolute left-0 top-0 z-10 px-5 pt-4 sm:px-8 sm:pt-5">
         <a
           href="https://www.nikgoodner.com"
