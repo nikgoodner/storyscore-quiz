@@ -17,7 +17,7 @@ type ResultsGridProps = {
 function VerticalConnector() {
   return (
     <div
-      className="mx-auto my-1 h-4 w-0 shrink-0 border-l-2 border-dotted border-storyscore-red"
+      className="storyscore-vertical-connector mx-auto my-2 h-6 shrink-0"
       aria-hidden
     />
   );

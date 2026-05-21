@@ -221,6 +221,20 @@ body {
   color: #ffffff;
 }
 
+.storyscore-vertical-connector {
+  width: 2px;
+  flex-shrink: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--storyscore-red) 0,
+    var(--storyscore-red) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  background-size: 2px 8px;
+  background-repeat: repeat-y;
+}
+
 /* —— Landing —— */
 
 .landing-headline {
