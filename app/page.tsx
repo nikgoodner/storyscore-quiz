@@ -42,9 +42,9 @@ export default function Home() {
         </a>
       </header>
 
-      <main className="flex flex-1 flex-col items-center justify-center px-5 py-12 pb-24 sm:px-8 sm:py-16 sm:pb-28 md:py-20">
+      <main className="flex flex-1 flex-col items-center justify-center px-5 pt-20 pb-24 sm:px-8 sm:py-16 sm:pb-28 md:py-20">
         <div className="flex w-full min-w-0 max-w-[min(1100px,96vw)] flex-col">
-          <section className="text-center">
+          <section className="mt-8 text-center sm:mt-0">
             <h1 className="landing-headline uppercase text-storyscore-red">
               STORYSCORE QUIZ
             </h1>
