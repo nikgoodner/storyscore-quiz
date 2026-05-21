@@ -19,8 +19,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImageUrl,
-        width: 1920,
-        height: 1080,
+        width: 1024,
+        height: 576,
         alt: "StoryScore: Find your personal brand chord",
       },
     ],
