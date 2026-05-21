@@ -20,7 +20,7 @@ export const metadata: Metadata = {
       {
         url: ogImageUrl,
         width: 1024,
-        height: 576,
+        height: 537,
         alt: "StoryScore: Find your personal brand voice",
       },
     ],
