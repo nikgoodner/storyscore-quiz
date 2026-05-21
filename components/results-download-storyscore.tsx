@@ -51,7 +51,7 @@ export function ResultsDownloadStoryscore({
       disabled={loading}
       className="storyscore-btn-primary w-full rounded-none px-8 py-3 text-sm disabled:cursor-wait disabled:opacity-60 sm:flex-1"
     >
-      {loading ? "Generating..." : "Download your StoryScore →"}
+      {loading ? "Generating..." : "Share your StoryScore →"}
     </button>
   );
 }

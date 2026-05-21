@@ -8,12 +8,15 @@ import { useCallback, useState } from "react";
 import { questions } from "@/lib/questions";
 import { calculateResults } from "@/lib/scoring";
 
+const SELECTION_FEEDBACK_MS = 250;
+
 export default function QuizPage() {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [visible, setVisible] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [isAdvancing, setIsAdvancing] = useState(false);
 
   const question = questions[currentIndex];
   const total = questions.length;
@@ -25,6 +28,7 @@ export default function QuizPage() {
     window.setTimeout(() => {
       setCurrentIndex(nextIndex);
       setVisible(true);
+      setIsAdvancing(false);
     }, 280);
   }, []);
 
@@ -32,20 +36,27 @@ export default function QuizPage() {
     optionIndex: number,
     event: React.MouseEvent<HTMLButtonElement>,
   ) => {
+    if (isAdvancing) {
+      return;
+    }
+
     event.currentTarget.blur();
 
     const nextAnswers = [...answers];
     nextAnswers[currentIndex] = optionIndex;
     setAnswers(nextAnswers);
+    setIsAdvancing(true);
 
-    if (isLast) {
-      const { core, balance, inverse } = calculateResults(nextAnswers);
-      setLoading(true);
-      router.push(`/results/${core}/${balance}/${inverse}`);
-      return;
-    }
+    window.setTimeout(() => {
+      if (isLast) {
+        const { core, balance, inverse } = calculateResults(nextAnswers);
+        setLoading(true);
+        router.push(`/results/${core}/${balance}/${inverse}`);
+        return;
+      }
 
-    transitionTo(currentIndex + 1);
+      transitionTo(currentIndex + 1);
+    }, SELECTION_FEEDBACK_MS);
   };
 
   const handleBack = () => {
@@ -77,14 +88,18 @@ export default function QuizPage() {
             className="mt-10 space-y-3 sm:mt-12 sm:space-y-4"
           >
             {question.options.map((option, index) => {
-              const selected = answers[currentIndex] === index;
+              const selectedAnswer = answers[currentIndex];
+              const isSelected = selectedAnswer === index;
               return (
                 <li key={`${currentIndex}-${option.label}`}>
                   <button
                     type="button"
+                    disabled={isAdvancing}
                     onClick={(event) => handleSelect(index, event)}
-                    className={`storyscore-interactive w-full rounded-2xl px-5 py-4 text-left text-[0.9rem] leading-[1.25] focus:outline-none sm:px-6 sm:py-5 sm:text-base ${
-                      selected ? "storyscore-interactive--active" : ""
+                    className={`w-full rounded-2xl border px-5 py-4 text-left text-[0.9rem] leading-[1.25] transition-[background-color,color,border-color] duration-200 ease-out focus:outline-none disabled:pointer-events-none sm:px-6 sm:py-5 sm:text-base ${
+                      isSelected
+                        ? "border-solid border-white bg-storyscore-red text-white"
+                        : "storyscore-interactive border-dashed bg-white text-storyscore-red"
                     }`}
                   >
                     {option.label}
