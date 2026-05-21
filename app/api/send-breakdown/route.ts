@@ -93,7 +93,7 @@ async function sendBreakdownEmail(
   return data;
 }
 
-async function addBeehiivSubscriber(
+async function addResendContact(
   firstName: string,
   lastName: string,
   email: string,
@@ -101,44 +101,36 @@ async function addBeehiivSubscriber(
   balanceId: ArchetypeId,
   inverseId: ArchetypeId,
 ) {
-  const apiKey = process.env.BEEHIIV_API_KEY;
-  const publicationId = process.env.BEEHIIV_PUBLICATION_ID;
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const audienceId = process.env.RESEND_AUDIENCE_ID;
 
-  if (!apiKey || !publicationId) {
-    throw new Error("Beehiiv is not configured.");
+  if (!resendApiKey) {
+    throw new Error("RESEND_API_KEY is not configured.");
   }
 
-  const response = await fetch(
-    `https://api.beehiiv.com/v2/publications/${publicationId}/subscriptions`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        reactivate_existing: true,
-        send_welcome_email: false,
-        custom_fields: [
-          { name: "first_name", value: firstName },
-          { name: "last_name", value: lastName },
-          { name: "core_archetype", value: archetypes[coreId].name },
-          { name: "balance_archetype", value: archetypes[balanceId].name },
-          { name: "inverse_archetype", value: archetypes[inverseId].name },
-        ],
-      }),
+  if (!audienceId) {
+    throw new Error("RESEND_AUDIENCE_ID is not configured.");
+  }
+
+  const resend = new Resend(resendApiKey);
+  const { data, error } = await resend.contacts.create({
+    audienceId,
+    email,
+    firstName,
+    lastName,
+    unsubscribed: false,
+    properties: {
+      core_archetype: archetypes[coreId].name,
+      balance_archetype: archetypes[balanceId].name,
+      inverse_archetype: archetypes[inverseId].name,
     },
-  );
+  });
 
-  if (!response.ok) {
-    const errorBody = await response.text();
-    throw new Error(
-      `Beehiiv subscription failed (${response.status}): ${errorBody}`,
-    );
+  if (error) {
+    throw new Error(error.message);
   }
 
-  return response.json();
+  return data;
 }
 
 async function logToNotion(
@@ -211,23 +203,19 @@ export async function POST(request: Request) {
 
   const { firstName, lastName, email, coreId, balanceId, inverseId } = validated;
 
-  const [emailResult, beehiivResult, notionResult] = await Promise.allSettled([
+  const [emailResult, contactResult, notionResult] = await Promise.allSettled([
     sendBreakdownEmail(firstName, email, coreId, balanceId, inverseId),
-    addBeehiivSubscriber(
-      firstName,
-      lastName,
-      email,
-      coreId,
-      balanceId,
-      inverseId,
-    ),
+    addResendContact(firstName, lastName, email, coreId, balanceId, inverseId),
     logToNotion(firstName, lastName, email, coreId, balanceId, inverseId),
   ]);
 
-  if (beehiivResult.status === "rejected") {
-    console.error("[STORYSCORE] Beehiiv subscription failed:", beehiivResult.reason);
+  if (contactResult.status === "rejected") {
+    console.error("[STORYSCORE] Resend contact create failed:", contactResult.reason);
   } else {
-    console.info("[STORYSCORE] Beehiiv subscription succeeded");
+    console.info("[STORYSCORE] Resend contact created", {
+      email,
+      contactId: contactResult.value?.id,
+    });
   }
 
   if (notionResult.status === "rejected") {

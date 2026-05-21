@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
 
 type UnsubscribeRequest = {
   email?: string;
@@ -25,44 +26,61 @@ export async function POST(request: Request) {
     );
   }
 
-  const apiKey = process.env.BEEHIIV_API_KEY;
-  const publicationId = process.env.BEEHIIV_PUBLICATION_ID;
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const audienceId = process.env.RESEND_AUDIENCE_ID;
 
-  if (!apiKey || !publicationId) {
+  if (!resendApiKey || !audienceId) {
+    console.error("[STORYSCORE] Resend unsubscribe not configured:", {
+      hasApiKey: Boolean(resendApiKey),
+      hasAudienceId: Boolean(audienceId),
+    });
     return NextResponse.json(
       { success: false, error: "Unsubscribe is not configured." },
       { status: 500 },
     );
   }
 
-  try {
-    const response = await fetch(
-      `https://api.beehiiv.com/v2/publications/${publicationId}/subscriptions/by_email/${encodeURIComponent(email)}`,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ unsubscribe: true }),
-      },
-    );
+  console.info("[STORYSCORE] Unsubscribe request:", { email, audienceId });
 
-    if (!response.ok) {
-      const errorBody = await response.text();
-      console.error("[STORYSCORE] Beehiiv unsubscribe failed:", {
-        status: response.status,
-        body: errorBody,
+  try {
+    const resend = new Resend(resendApiKey);
+    const { data, error } = await resend.contacts.update({
+      email,
+      audienceId,
+      unsubscribed: true,
+    });
+
+    if (error) {
+      console.error("[STORYSCORE] Resend unsubscribe failed:", {
+        email,
+        audienceId,
+        statusCode: error.statusCode,
+        name: error.name,
+        message: error.message,
+        error,
       });
+
+      if (error.statusCode === 404) {
+        console.info("[STORYSCORE] Resend contact not found; treating as unsubscribed:", {
+          email,
+        });
+        return NextResponse.json({ success: true });
+      }
+
       return NextResponse.json(
         { success: false, error: "Could not unsubscribe. Please try again." },
         { status: 500 },
       );
     }
 
+    console.info("[STORYSCORE] Resend unsubscribe succeeded:", {
+      email,
+      contactId: data?.id,
+    });
+
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error("[STORYSCORE] Beehiiv unsubscribe error:", err);
+    console.error("[STORYSCORE] Resend unsubscribe error:", err);
     return NextResponse.json(
       { success: false, error: "Could not unsubscribe. Please try again." },
       { status: 500 },
