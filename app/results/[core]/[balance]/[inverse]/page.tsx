@@ -1,10 +1,9 @@
 import { FloatingHead } from "@/components/floating-head";
 import { ResultsActions } from "@/components/results-actions";
 import { ResultsGrid } from "@/components/results-grid";
-import { ResultsShareChord } from "@/components/results-share-chord";
+import { ResultsDownloadStoryscore } from "@/components/results-download-storyscore";
 import { StoryscoreButton } from "@/components/storyscore-button";
 import { archetypes, isArchetypeId } from "@/lib/archetypes";
-import { generateShareImageUrl } from "@/lib/share-image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -21,12 +20,6 @@ const SLOTS = [
   { rankLabel: "Balance", descriptionKey: "balance" as const },
   { rankLabel: "Inverse", descriptionKey: "inverse" as const },
 ];
-
-const PRODUCTION_SITE_URL = "https://quiz.nikgoodner.com";
-
-function getSiteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? PRODUCTION_SITE_URL;
-}
 
 export async function generateMetadata({
   params,
@@ -48,25 +41,9 @@ export async function generateMetadata({
   const title = `My StoryScore: ${coreArchetype.name} / ${balanceArchetype.name} / ${inverseArchetype.name}`;
   const description = `I lead with ${coreArchetype.name.toLowerCase()}. I shape my voice through ${balanceArchetype.name.toLowerCase()}. I add depth through ${inverseArchetype.name.toLowerCase()}.`;
 
-  const imageUrl = await generateShareImageUrl(core, balance, inverse);
-  const openGraphImages = imageUrl ? [{ url: imageUrl }] : [];
-  const twitterImages = imageUrl ? [imageUrl] : [];
-
   return {
     title,
     description,
-    openGraph: {
-      type: "website",
-      title,
-      description,
-      images: openGraphImages,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: twitterImages,
-    },
   };
 }
 
@@ -87,9 +64,6 @@ export default async function ResultsPage({ params }: ResultsPageProps) {
     { id: inverse, ...SLOTS[2] },
   ] as const;
 
-  const resultsUrl = `${getSiteUrl()}/results/${core}/${balance}/${inverse}`;
-  const shareImageUrl = await generateShareImageUrl(core, balance, inverse);
-
   return (
     <div className="relative flex min-h-[100dvh] flex-col overflow-x-hidden bg-white text-storyscore-red">
       <header className="absolute left-0 top-0 z-10 px-5 pt-4 sm:px-8 sm:pt-5">
@@ -103,9 +77,9 @@ export default async function ResultsPage({ params }: ResultsPageProps) {
         </a>
       </header>
 
-      <main className="flex w-full flex-1 flex-col items-center px-5 pt-20 pb-28 sm:px-8 sm:py-14 sm:pb-32">
+      <main className="flex w-full flex-1 flex-col items-center px-5 pt-20 pb-28 sm:px-8 sm:pt-28 sm:pb-32 md:pt-32">
         <div className="w-full max-w-3xl min-w-0">
-          <div className="text-left mt-8 sm:mt-0">
+          <div className="text-left mt-8 sm:mt-10 md:mt-0">
             <h1 className="font-display text-7xl font-bold uppercase leading-[0.85] text-storyscore-red md:text-8xl">
               Your STORYSCORE
             </h1>
@@ -124,12 +98,10 @@ export default async function ResultsPage({ params }: ResultsPageProps) {
           </div>
 
           <div className="mt-8 flex flex-col gap-2 border-t border-dashed border-storyscore-red pt-8 sm:mt-10 sm:pt-10 sm:flex-row sm:gap-3">
-            <ResultsShareChord
+            <ResultsDownloadStoryscore
               core={core}
               balance={balance}
               inverse={inverse}
-              resultsUrl={resultsUrl}
-              initialImageUrl={shareImageUrl}
             />
             <StoryscoreButton
               href="/quiz"

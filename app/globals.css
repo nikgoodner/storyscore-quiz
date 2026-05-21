@@ -105,11 +105,17 @@ body {
     border-color 0.5s ease-in-out;
 }
 
-.storyscore-interactive:hover {
-  border-color: #ffffff;
-  border-style: solid;
-  background-color: var(--storyscore-red);
-  color: #ffffff;
+.storyscore-interactive:focus {
+  outline: none;
+}
+
+@media (hover: hover) {
+  .storyscore-interactive:hover:not(.storyscore-interactive--active) {
+    border-color: #ffffff;
+    border-style: solid;
+    background-color: var(--storyscore-red);
+    color: #ffffff;
+  }
 }
 
 .storyscore-interactive--active {
@@ -134,9 +140,11 @@ body {
     border-color 0.5s ease-in-out;
 }
 
-.storyscore-btn-primary:hover {
-  background-color: #ffffff;
-  color: var(--storyscore-red);
+@media (hover: hover) {
+  .storyscore-btn-primary:hover:not(:disabled) {
+    background-color: #ffffff;
+    color: var(--storyscore-red);
+  }
 }
 
 .storyscore-btn-secondary {
@@ -159,62 +167,6 @@ body {
   border-style: solid;
   background-color: var(--storyscore-red);
   color: #ffffff;
-}
-
-@keyframes share-modal-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes share-modal-fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes share-modal-panel-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes share-modal-panel-out {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-}
-
-.share-modal-backdrop-in {
-  animation: share-modal-fade-in 0.2s ease forwards;
-}
-
-.share-modal-backdrop-out {
-  animation: share-modal-fade-out 0.2s ease forwards;
-}
-
-.share-modal-panel-in {
-  animation: share-modal-panel-in 0.2s ease forwards;
-}
-
-.share-modal-panel-out {
-  animation: share-modal-panel-out 0.2s ease forwards;
 }
 
 .storyscore-progress {

@@ -28,7 +28,12 @@ export default function QuizPage() {
     }, 280);
   }, []);
 
-  const handleSelect = (optionIndex: number) => {
+  const handleSelect = (
+    optionIndex: number,
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.currentTarget.blur();
+
     const nextAnswers = [...answers];
     nextAnswers[currentIndex] = optionIndex;
     setAnswers(nextAnswers);
@@ -67,15 +72,18 @@ export default function QuizPage() {
           <p className="storyscore-eyebrow">Question {currentIndex + 1}</p>
           <h2 className="storyscore-display-lg mt-4">{question.text}</h2>
 
-          <ul className="mt-10 space-y-3 sm:mt-12 sm:space-y-4">
+          <ul
+            key={currentIndex}
+            className="mt-10 space-y-3 sm:mt-12 sm:space-y-4"
+          >
             {question.options.map((option, index) => {
               const selected = answers[currentIndex] === index;
               return (
-                <li key={option.label}>
+                <li key={`${currentIndex}-${option.label}`}>
                   <button
                     type="button"
-                    onClick={() => handleSelect(index)}
-                    className={`storyscore-interactive w-full rounded-2xl px-5 py-4 text-left text-[0.9rem] leading-[1.25] sm:px-6 sm:py-5 sm:text-base ${
+                    onClick={(event) => handleSelect(index, event)}
+                    className={`storyscore-interactive w-full rounded-2xl px-5 py-4 text-left text-[0.9rem] leading-[1.25] focus:outline-none sm:px-6 sm:py-5 sm:text-base ${
                       selected ? "storyscore-interactive--active" : ""
                     }`}
                   >
