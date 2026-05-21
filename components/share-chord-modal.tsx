@@ -37,6 +37,11 @@ export function ShareChordModal({
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
+    if (!isOpen && !isClosing) {
+      document.body.style.overflow = "";
+      return;
+    }
+
     if (!isOpen || isClosing) {
       return;
     }

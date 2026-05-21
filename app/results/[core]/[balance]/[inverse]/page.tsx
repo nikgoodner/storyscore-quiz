@@ -91,7 +91,7 @@ export default async function ResultsPage({ params }: ResultsPageProps) {
   const shareImageUrl = await generateShareImageUrl(core, balance, inverse);
 
   return (
-    <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-white text-storyscore-red">
+    <div className="relative flex min-h-[100dvh] flex-col overflow-x-hidden bg-white text-storyscore-red">
       <header className="absolute left-0 top-0 z-10 px-5 pt-4 sm:px-8 sm:pt-5">
         <a
           href="https://www.nikgoodner.com"
@@ -103,10 +103,12 @@ export default async function ResultsPage({ params }: ResultsPageProps) {
         </a>
       </header>
 
-      <main className="flex flex-1 flex-col items-center justify-center px-5 py-14 sm:px-8">
-        <div className="w-full max-w-3xl">
-          <div className="text-left">
-            <h1 className="storyscore-results-title uppercase">Your STORYSCORE</h1>
+      <main className="flex w-full flex-1 flex-col items-center px-5 pt-20 pb-28 sm:px-8 sm:py-14 sm:pb-32">
+        <div className="w-full max-w-3xl min-w-0">
+          <div className="text-left mt-8 sm:mt-0">
+            <h1 className="font-display text-7xl font-bold uppercase leading-[0.85] text-storyscore-red md:text-8xl">
+              Your STORYSCORE
+            </h1>
             <p className="storyscore-results-intro mt-4 max-w-3xl">
               Your three keys, ranked from dominant to complementary. The chord your
               content / communication style actually plays.

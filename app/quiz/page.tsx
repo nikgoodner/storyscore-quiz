@@ -49,7 +49,7 @@ export default function QuizPage() {
   };
 
   return (
-    <div className="relative flex min-h-[100dvh] flex-col bg-white pb-20 text-storyscore-red">
+    <div className="relative flex min-h-[100dvh] flex-col overflow-x-hidden bg-white pb-24 text-storyscore-red sm:pb-28">
       {loading && <PageLoader />}
 
       <QuizProgressHeader
@@ -58,7 +58,7 @@ export default function QuizPage() {
         progress={progress}
       />
 
-      <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center px-5 py-12 sm:px-8 sm:py-16">
+      <main className="mx-auto flex w-full min-w-0 max-w-2xl flex-1 flex-col justify-center px-5 py-10 sm:px-8 sm:py-16">
         <div
           className={`transition-opacity duration-300 ease-out ${
             visible ? "animate-fade-in opacity-100" : "opacity-0"

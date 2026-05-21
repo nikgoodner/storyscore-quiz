@@ -19,7 +19,7 @@ export function ResultsArchetypeCard({
 }: ResultsArchetypeCardProps) {
   if (fit) {
     return (
-      <article className="rounded-2xl border border-dashed border-storyscore-red bg-white px-4 py-4 sm:px-5 sm:py-5">
+      <article className="min-w-0 rounded-2xl border border-dashed border-storyscore-red bg-white px-4 py-4 break-words sm:px-5 sm:py-5">
         <div className="flex items-center gap-3">
           <span
             className="storyscore-rank-circle inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-xs"
