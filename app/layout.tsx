@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { bodyFont, displayFont } from "@/lib/fonts";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const siteUrl =
@@ -50,6 +51,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-white font-sans text-black">
         {children}
+        <Analytics />
       </body>
     </html>
   );
