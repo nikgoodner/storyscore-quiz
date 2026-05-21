@@ -1,0 +1,351 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --storyscore-red: #ff0000;
+  --muted: #4a4a4a;
+  --border: #e5e5e5;
+  --accent: #ff0000;
+  --accent-soft: #fff0f0;
+
+  /* Landing page tuning — edit these values, save, refresh */
+  --landing-headline-size: clamp(3rem, 11vw, 7.5rem);
+  --landing-headline-tracking: -0.01em;
+  --landing-card-title-tracking: 0em;
+  --landing-card-title-size: 2rem;
+  --landing-card-title-size-md: 2.35rem;
+  --landing-key-number-border: 1px;
+  --landing-intro-size: 1.125rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-storyscore-red: var(--storyscore-red);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-storyscore-body);
+  --font-display: var(--font-storyscore-display);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-storyscore-body), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-storyscore-display), "Arial Black", Impact, sans-serif;
+}
+
+/* —— Storyscore design system (landing, quiz, results) —— */
+
+.storyscore-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--storyscore-red);
+}
+
+.storyscore-body {
+  color: var(--storyscore-red);
+  line-height: 1.25;
+}
+
+.storyscore-display-lg {
+  font-family: var(--font-storyscore-display), "Arial Black", Impact, sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: var(--landing-card-title-tracking);
+  line-height: 0.95;
+  color: var(--storyscore-red);
+}
+
+.storyscore-display-xl {
+  font-family: var(--font-storyscore-display), "Arial Black", Impact, sans-serif;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  letter-spacing: var(--landing-card-title-tracking);
+  line-height: 0.9;
+  color: var(--storyscore-red);
+}
+
+.storyscore-results-title {
+  font-family: var(--font-storyscore-display), "Arial Black", Impact, sans-serif;
+  font-size: clamp(3.25rem, 8vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 0.85;
+  color: var(--storyscore-red);
+}
+
+.storyscore-results-intro {
+  color: var(--storyscore-red);
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  line-height: 1.3;
+}
+
+.storyscore-interactive {
+  border: 1px dashed var(--storyscore-red);
+  background-color: #ffffff;
+  color: var(--storyscore-red);
+  transition:
+    background-color 0.5s ease-in-out,
+    color 0.5s ease-in-out,
+    border-color 0.5s ease-in-out;
+}
+
+.storyscore-interactive:hover {
+  border-color: #ffffff;
+  border-style: solid;
+  background-color: var(--storyscore-red);
+  color: #ffffff;
+}
+
+.storyscore-interactive--active {
+  border-color: #ffffff;
+  border-style: solid;
+  background-color: var(--storyscore-red);
+  color: #ffffff;
+}
+
+.storyscore-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--storyscore-red);
+  background-color: var(--storyscore-red);
+  color: #ffffff;
+  font-weight: 500;
+  line-height: 1;
+  transition:
+    background-color 0.5s ease-in-out,
+    color 0.5s ease-in-out,
+    border-color 0.5s ease-in-out;
+}
+
+.storyscore-btn-primary:hover {
+  background-color: #ffffff;
+  color: var(--storyscore-red);
+}
+
+.storyscore-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--storyscore-red);
+  background-color: #ffffff;
+  color: var(--storyscore-red);
+  font-weight: 500;
+  line-height: 1;
+  transition:
+    background-color 0.5s ease-in-out,
+    color 0.5s ease-in-out,
+    border-color 0.5s ease-in-out;
+}
+
+.storyscore-btn-secondary:hover {
+  border-color: #ffffff;
+  border-style: solid;
+  background-color: var(--storyscore-red);
+  color: #ffffff;
+}
+
+@keyframes share-modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes share-modal-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes share-modal-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes share-modal-panel-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.share-modal-backdrop-in {
+  animation: share-modal-fade-in 0.2s ease forwards;
+}
+
+.share-modal-backdrop-out {
+  animation: share-modal-fade-out 0.2s ease forwards;
+}
+
+.share-modal-panel-in {
+  animation: share-modal-panel-in 0.2s ease forwards;
+}
+
+.share-modal-panel-out {
+  animation: share-modal-panel-out 0.2s ease forwards;
+}
+
+.storyscore-progress {
+  position: relative;
+  height: 0.25rem;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.storyscore-progress-outline {
+  position: absolute;
+  inset: 0;
+  border: 1px dashed var(--storyscore-red);
+  pointer-events: none;
+}
+
+.storyscore-progress-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--storyscore-red);
+  transition: width 0.5s ease-in-out;
+  z-index: 1;
+}
+
+.storyscore-rank-circle {
+  border: var(--landing-key-number-border) solid var(--storyscore-red);
+  font-family: var(--font-storyscore-body), system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--storyscore-red);
+  -webkit-font-smoothing: antialiased;
+}
+
+.storyscore-keyword {
+  border: 1px dashed var(--storyscore-red);
+  background-color: #ffffff;
+  color: var(--storyscore-red);
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition:
+    background-color 0.5s ease-in-out,
+    color 0.5s ease-in-out,
+    border-color 0.5s ease-in-out;
+}
+
+.storyscore-keyword:hover {
+  border-color: #ffffff;
+  border-style: solid;
+  background-color: var(--storyscore-red);
+  color: #ffffff;
+}
+
+/* —— Landing —— */
+
+.landing-headline {
+  font-family: var(--font-storyscore-display), "Arial Black", Impact, sans-serif;
+  font-size: var(--landing-headline-size);
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: var(--landing-headline-tracking);
+  line-height: 0.85;
+}
+
+.landing-key-number {
+  border: var(--landing-key-number-border) solid var(--storyscore-red);
+  font-family: var(--font-storyscore-body), system-ui, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease,
+    border-color 0.45s ease;
+}
+
+.group:hover .landing-key-number {
+  border-color: #ffffff;
+  background-color: var(--storyscore-red);
+  color: #ffffff;
+}
+
+.landing-card-title {
+  font-family: var(--font-storyscore-display), "Arial Black", Impact, sans-serif;
+  font-size: var(--landing-card-title-size);
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: var(--landing-card-title-tracking);
+  line-height: 0.9;
+}
+
+@media (min-width: 768px) {
+  .landing-card-title {
+    font-size: var(--landing-card-title-size-md);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.35s ease-out forwards;
+}
+
+@keyframes spin-head {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-head {
+  animation: spin-head 1.1s linear infinite;
+}
+
+@keyframes sway-head-slow {
+  0%,
+  100% {
+    transform: rotate(-12deg);
+  }
+  50% {
+    transform: rotate(12deg);
+  }
+}
+
+.animate-sway-head-slow {
+  animation: sway-head-slow 5s ease-in-out infinite;
+  transform-origin: center bottom;
+}
