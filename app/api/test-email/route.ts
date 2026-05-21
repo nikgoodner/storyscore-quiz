@@ -1,5 +1,6 @@
 import { StoryscoreBreakdown } from "@/emails/StoryscoreBreakdown";
 import { archetypes } from "@/lib/archetypes";
+import { getUnsubscribeUrl } from "@/lib/site-url";
 import { NextResponse } from "next/server";
 import { createElement } from "react";
 import { Resend } from "resend";
@@ -39,7 +40,7 @@ export async function GET() {
       to: TEST_EMAIL,
       subject: `Your StoryScore: ${archetypes[TEST_CORE_ID].name} / ${archetypes[TEST_BALANCE_ID].name} / ${archetypes[TEST_INVERSE_ID].name}`,
       headers: {
-        "List-Unsubscribe": "<{{{RESEND_UNSUBSCRIBE_URL}}}>",
+        "List-Unsubscribe": `<${getUnsubscribeUrl(TEST_EMAIL)}>`,
         "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
       },
       react: createElement(StoryscoreBreakdown, {
@@ -47,6 +48,7 @@ export async function GET() {
         coreId: TEST_CORE_ID,
         balanceId: TEST_BALANCE_ID,
         inverseId: TEST_INVERSE_ID,
+        recipientEmail: TEST_EMAIL,
       }),
     });
 

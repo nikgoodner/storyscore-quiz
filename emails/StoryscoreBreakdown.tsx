@@ -15,18 +15,18 @@ import {
 import type { ReactNode } from "react";
 import { archetypes, type ArchetypeId } from "@/lib/archetypes";
 import { emailCopy } from "@/lib/emailCopy";
+import { getSiteUrl, getUnsubscribeUrl } from "@/lib/site-url";
 
 export type StoryscoreBreakdownProps = {
   firstName: string;
   coreId: ArchetypeId;
   balanceId: ArchetypeId;
   inverseId: ArchetypeId;
+  recipientEmail: string;
 };
 
 const RED = "#FF0000";
 const WHITE = "#FFFFFF";
-const PRODUCTION_SITE_URL = "https://quiz.nikgoodner.com";
-
 const mono = {
   fontFamily: '"DM Mono", monospace',
 } as const;
@@ -87,16 +87,12 @@ function stripFirstWord(fragment: string): string {
   return fragment.split(" ").slice(1).join(" ");
 }
 
-function siteUrl(): string {
-  return process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? PRODUCTION_SITE_URL;
-}
-
 function floatingHeadSrc(): string {
-  return `${siteUrl()}/floating-head.png`;
+  return `${getSiteUrl()}/floating-head.png`;
 }
 
 function iconSrc(filename: string): string {
-  return `${siteUrl()}/${filename}`;
+  return `${getSiteUrl()}/${filename}`;
 }
 
 function FloatingHeadImg() {
@@ -315,6 +311,7 @@ export function StoryscoreBreakdown({
   coreId,
   balanceId,
   inverseId,
+  recipientEmail,
 }: StoryscoreBreakdownProps) {
   const core = archetypes[coreId];
   const balance = archetypes[balanceId];
@@ -685,7 +682,7 @@ export function StoryscoreBreakdown({
               }}
             >
               <Link
-                href="{{{RESEND_UNSUBSCRIBE_URL}}}"
+                href={getUnsubscribeUrl(recipientEmail)}
                 style={{ color: RED, textDecoration: "underline" }}
               >
                 UNSUBSCRIBE
@@ -704,6 +701,7 @@ StoryscoreBreakdown.PreviewProps = {
   coreId: "storyteller",
   balanceId: "reporter",
   inverseId: "connector",
+  recipientEmail: "alex@example.com",
 } satisfies StoryscoreBreakdownProps;
 
 export default StoryscoreBreakdown;

@@ -1,5 +1,6 @@
 import { StoryscoreBreakdown } from "@/emails/StoryscoreBreakdown";
 import { archetypes, isArchetypeId, type ArchetypeId } from "@/lib/archetypes";
+import { getUnsubscribeUrl } from "@/lib/site-url";
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
 import { createElement } from "react";
@@ -73,7 +74,7 @@ async function sendBreakdownEmail(
     to: email,
     subject: `Your StoryScore: ${archetypes[coreId].name} / ${archetypes[balanceId].name} / ${archetypes[inverseId].name}`,
     headers: {
-      "List-Unsubscribe": "<{{{RESEND_UNSUBSCRIBE_URL}}}>",
+      "List-Unsubscribe": `<${getUnsubscribeUrl(email)}>`,
       "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
     },
     react: createElement(StoryscoreBreakdown, {
@@ -81,6 +82,7 @@ async function sendBreakdownEmail(
       coreId,
       balanceId,
       inverseId,
+      recipientEmail: email,
     }),
   });
 
