@@ -7,11 +7,11 @@ const siteUrl =
 const ogImageUrl = `${siteUrl.replace(/\/$/, "")}/og-image.png`;
 
 export const metadata: Metadata = {
-  title: "StoryScore | Find your personal brand chord",
+  title: "StoryScore | Find your personal brand voice",
   description:
     "Every voice has a chord. Take the free quiz to find yours: three archetypes that show how your content actually plays.",
   openGraph: {
-    title: "StoryScore | Find your personal brand chord",
+    title: "StoryScore | Find your personal brand voice",
     description:
       "Every voice has a chord. Take the free quiz to find yours: three archetypes that show how your content actually plays.",
     url: siteUrl,
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         url: ogImageUrl,
         width: 1024,
         height: 576,
-        alt: "StoryScore: Find your personal brand chord",
+        alt: "StoryScore: Find your personal brand voice",
       },
     ],
     locale: "en_US",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "StoryScore | Find your personal brand chord",
+    title: "StoryScore | Find your personal brand voice",
     description:
       "Every voice has a chord. Take the free quiz to find yours: three archetypes that show how your content actually plays.",
     images: [ogImageUrl],
