@@ -1,6 +1,7 @@
 import { StoryscoreBreakdown } from "@/emails/StoryscoreBreakdown";
 import { archetypes, isArchetypeId, type ArchetypeId } from "@/lib/archetypes";
 import { getUnsubscribeUrl } from "@/lib/site-url";
+import { buildStoryscoreBreakdownText } from "@/lib/storyscore-breakdown-content";
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
 import { createElement } from "react";
@@ -68,22 +69,27 @@ async function sendBreakdownEmail(
     throw new Error("FROM_EMAIL is not configured.");
   }
 
+  const emailProps = {
+    firstName,
+    coreId,
+    balanceId,
+    inverseId,
+    recipientEmail: email,
+  };
+
   const resend = new Resend(resendApiKey);
   const { data, error } = await resend.emails.send({
     from: fromEmail,
     to: email,
+    replyTo: "me@nikgoodner.com",
     subject: `Your StoryScore: ${archetypes[coreId].name} / ${archetypes[balanceId].name} / ${archetypes[inverseId].name}`,
     headers: {
       "List-Unsubscribe": `<${getUnsubscribeUrl(email)}>`,
       "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
     },
-    react: createElement(StoryscoreBreakdown, {
-      firstName,
-      coreId,
-      balanceId,
-      inverseId,
-      recipientEmail: email,
-    }),
+    tags: [{ name: "type", value: "storyscore-breakdown" }],
+    react: createElement(StoryscoreBreakdown, emailProps),
+    text: buildStoryscoreBreakdownText(emailProps),
   });
 
   if (error) {

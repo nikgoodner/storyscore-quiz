@@ -15,6 +15,12 @@ import {
 import type { ReactNode } from "react";
 import { archetypes, type ArchetypeId } from "@/lib/archetypes";
 import { emailCopy } from "@/lib/emailCopy";
+import {
+  buildChordOneLiner,
+  extractActionsKeepingCapitalization,
+  stripFirstWord,
+  withoutEmDashes,
+} from "@/lib/storyscore-breakdown-content";
 import { getSiteUrl, getUnsubscribeUrl } from "@/lib/site-url";
 
 export type StoryscoreBreakdownProps = {
@@ -56,36 +62,6 @@ const dottedBox = {
   borderRadius: "4px",
   padding: "20px",
 } as const;
-
-function withoutEmDashes(text: string): string {
-  return text.replace(/\u2014/g, "-").replace(/\u2013/g, "-");
-}
-
-function extractActionsKeepingCapitalization(text: string): string {
-  const match = text.match(/\.\s+/);
-  if (!match || match.index === undefined) {
-    return text;
-  }
-  return text.slice(match.index + match[0].length);
-}
-
-function buildChordOneLiner(
-  coreId: ArchetypeId,
-  balanceId: ArchetypeId,
-  inverseId: ArchetypeId,
-): string {
-  return withoutEmDashes(
-    [
-      emailCopy[coreId].oneLiner.core,
-      emailCopy[balanceId].oneLiner.balance,
-      emailCopy[inverseId].oneLiner.inverse,
-    ].join(" "),
-  );
-}
-
-function stripFirstWord(fragment: string): string {
-  return fragment.split(" ").slice(1).join(" ");
-}
 
 function floatingHeadSrc(): string {
   return `${getSiteUrl()}/floating-head.png`;

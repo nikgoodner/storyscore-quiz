@@ -1,6 +1,7 @@
 import { StoryscoreBreakdown } from "@/emails/StoryscoreBreakdown";
 import { archetypes } from "@/lib/archetypes";
 import { getUnsubscribeUrl } from "@/lib/site-url";
+import { buildStoryscoreBreakdownText } from "@/lib/storyscore-breakdown-content";
 import { NextResponse } from "next/server";
 import { createElement } from "react";
 import { Resend } from "resend";
@@ -34,22 +35,27 @@ export async function GET() {
   }
 
   try {
+    const emailProps = {
+      firstName: TEST_FIRST_NAME,
+      coreId: TEST_CORE_ID,
+      balanceId: TEST_BALANCE_ID,
+      inverseId: TEST_INVERSE_ID,
+      recipientEmail: TEST_EMAIL,
+    };
+
     const resend = new Resend(resendApiKey);
     const { data, error } = await resend.emails.send({
       from: fromEmail,
       to: TEST_EMAIL,
+      replyTo: "me@nikgoodner.com",
       subject: `Your StoryScore: ${archetypes[TEST_CORE_ID].name} / ${archetypes[TEST_BALANCE_ID].name} / ${archetypes[TEST_INVERSE_ID].name}`,
       headers: {
         "List-Unsubscribe": `<${getUnsubscribeUrl(TEST_EMAIL)}>`,
         "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
       },
-      react: createElement(StoryscoreBreakdown, {
-        firstName: TEST_FIRST_NAME,
-        coreId: TEST_CORE_ID,
-        balanceId: TEST_BALANCE_ID,
-        inverseId: TEST_INVERSE_ID,
-        recipientEmail: TEST_EMAIL,
-      }),
+      tags: [{ name: "type", value: "storyscore-breakdown" }],
+      react: createElement(StoryscoreBreakdown, emailProps),
+      text: buildStoryscoreBreakdownText(emailProps),
     });
 
     if (error) {
