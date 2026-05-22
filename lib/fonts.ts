@@ -27,3 +27,17 @@ export const bodyFont = localFont({
   fallback: ["Helvetica Neue", "Arial", "sans-serif"],
   display: "swap",
 });
+
+/** Aeonik Fono Medium — quiz answer parenthetical examples */
+export const aeonikFonoFont = localFont({
+  src: [
+    {
+      path: "../public/fonts/AeonikFono-Medium.otf",
+      weight: "500",
+      style: "normal",
+    },
+  ],
+  variable: "--font-aeonik-fono",
+  fallback: ["ui-monospace", "monospace"],
+  display: "swap",
+});

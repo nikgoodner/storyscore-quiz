@@ -32,7 +32,7 @@ async function logAnonymousCompletion(
       "Balance Archetype": {
         select: { name: archetypes[balanceId].name },
       },
-      "Inverse Archetype": {
+      "Twist Archetype": {
         select: { name: archetypes[inverseId].name },
       },
       "Submitted At": {

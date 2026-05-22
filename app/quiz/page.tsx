@@ -2,13 +2,15 @@
 
 import { FloatingHead } from "@/components/floating-head";
 import { PageLoader } from "@/components/page-loader";
+import { QuizAnswerOption } from "@/components/quiz-answer-option";
 import { QuizProgressHeader } from "@/components/quiz-progress-header";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { questions } from "@/lib/questions";
 import { calculateResults } from "@/lib/scoring";
 
-const SELECTION_FEEDBACK_MS = 250;
+/** Delay after selection before advancing — tweak if feedback feels too fast or slow. */
+const SELECTION_FEEDBACK_MS = 350;
 
 export default function QuizPage() {
   const router = useRouter();
@@ -81,29 +83,25 @@ export default function QuizPage() {
           }`}
         >
           <p className="storyscore-eyebrow">Question {currentIndex + 1}</p>
-          <h2 className="storyscore-display-lg mt-4">{question.text}</h2>
+          <h2 className="storyscore-display-xl mt-5 max-w-[36rem] leading-[0.95] sm:mt-6">
+            {question.text}
+          </h2>
 
           <ul
             key={currentIndex}
-            className="mt-10 space-y-3 sm:mt-12 sm:space-y-4"
+            className="mt-7 flex flex-col gap-3 sm:mt-8 sm:gap-4"
           >
             {question.options.map((option, index) => {
               const selectedAnswer = answers[currentIndex];
               const isSelected = selectedAnswer === index;
               return (
                 <li key={`${currentIndex}-${option.label}`}>
-                  <button
-                    type="button"
+                  <QuizAnswerOption
+                    label={option.label}
+                    selected={isSelected}
                     disabled={isAdvancing}
-                    onClick={(event) => handleSelect(index, event)}
-                    className={`w-full rounded-2xl border px-5 py-4 text-left text-[0.9rem] leading-[1.25] transition-[background-color,color,border-color] duration-200 ease-out focus:outline-none disabled:pointer-events-none sm:px-6 sm:py-5 sm:text-base ${
-                      isSelected
-                        ? "border-solid border-white bg-storyscore-red text-white"
-                        : "storyscore-interactive border-dashed bg-white text-storyscore-red"
-                    }`}
-                  >
-                    {option.label}
-                  </button>
+                    onSelect={(event) => handleSelect(index, event)}
+                  />
                 </li>
               );
             })}

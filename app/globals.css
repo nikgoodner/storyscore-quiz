@@ -10,7 +10,7 @@
   --accent-soft: #fff0f0;
 
   /* Landing page tuning — edit these values, save, refresh */
-  --landing-headline-size: clamp(2.25rem, 10vw, 7.5rem);
+  --landing-headline-size: clamp(3rem, 14vw, 8.5rem);
   --landing-headline-tracking: -0.01em;
   --landing-card-title-tracking: 0em;
   --landing-card-title-size: 1.375rem;
@@ -29,6 +29,7 @@
   --color-accent-soft: var(--accent-soft);
   --font-sans: var(--font-storyscore-body);
   --font-display: var(--font-storyscore-display);
+  --font-aeonik-fono: var(--font-aeonik-fono), ui-monospace, monospace;
 }
 
 html,
@@ -124,6 +125,8 @@ body {
   background-color: var(--storyscore-red);
   color: #ffffff;
 }
+
+/* Quiz answer rows — hover/active invert handled in component (Tailwind group) */
 
 .storyscore-btn-primary {
   display: inline-flex;
@@ -242,6 +245,20 @@ body {
   background-position: center top;
 }
 
+@media (max-width: 639px) {
+  .storyscore-vertical-connector {
+    width: 1px;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--storyscore-red) 0,
+      var(--storyscore-red) 3px,
+      transparent 3px,
+      transparent 7px
+    );
+    background-size: 1px 7px;
+  }
+}
+
 /* —— Landing —— */
 
 .landing-headline {
@@ -255,7 +272,8 @@ body {
 
 @media (max-width: 639px) {
   .landing-headline {
-    font-size: clamp(3rem, 14vw, 7.5rem);
+    font-size: clamp(1.75rem, 10.5vw, 3rem);
+    white-space: nowrap;
   }
 }
 
@@ -283,6 +301,27 @@ body {
   font-weight: 700;
   letter-spacing: var(--landing-card-title-tracking);
   line-height: 0.9;
+}
+
+.landing-key-card-title {
+  font-family: var(--font-storyscore-display), "Arial Black", Impact, sans-serif;
+  font-size: 1.625rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: var(--landing-card-title-tracking);
+  line-height: 0.9;
+}
+
+@media (min-width: 640px) {
+  .landing-key-card-title {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .landing-key-card-title {
+    font-size: 2.75rem;
+  }
 }
 
 @media (min-width: 640px) {

@@ -412,9 +412,9 @@ export function StoryscoreBreakdown({
                     color: RED,
                   }}
                 >
-                  {index === 0 && `CORE: ${archetype.name.toUpperCase()}`}
-                  {index === 1 && `BALANCE: ${archetype.name.toUpperCase()}`}
-                  {index === 2 && `INVERSE: ${archetype.name.toUpperCase()}`}
+                  {index === 0 && `CENTER: ${archetype.name.toUpperCase()}`}
+                  {index === 1 && `VIBE: ${archetype.name.toUpperCase()}`}
+                  {index === 2 && `TWIST: ${archetype.name.toUpperCase()}`}
                 </Text>
               </Section>
             ))}
@@ -455,7 +455,7 @@ export function StoryscoreBreakdown({
 
           {/* 5. Core */}
           <ArchetypeDetailSection
-            rankLabel="YOUR CORE"
+            rankLabel="YOUR CENTER"
             archetypeId={coreId}
             descriptionKey="core"
           />
@@ -464,7 +464,7 @@ export function StoryscoreBreakdown({
 
           {/* 7. Balance */}
           <ArchetypeDetailSection
-            rankLabel="YOUR BALANCE"
+            rankLabel="YOUR VIBE"
             archetypeId={balanceId}
             descriptionKey="balance"
           />
@@ -473,7 +473,7 @@ export function StoryscoreBreakdown({
 
           {/* 9. Inverse */}
           <ArchetypeDetailSection
-            rankLabel="YOUR INVERSE"
+            rankLabel="YOUR TWIST"
             archetypeId={inverseId}
             descriptionKey="inverse"
           />

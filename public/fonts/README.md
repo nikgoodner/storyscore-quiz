@@ -4,6 +4,7 @@
 |------|------|
 | `PPFormula-CondensedBold.woff2` | Headlines (STORYSCORE QUIZ, CORE, BALANCE, INVERSE) |
 | `PPNeueMontreal-Medium.woff2` | Body copy, buttons, descriptions |
+| `AeonikFono-Medium.otf` | Quiz answer parenthetical examples |
 
 Configured in `lib/fonts.ts` via `next/font/local`.
 

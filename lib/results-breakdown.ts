@@ -1,9 +1,9 @@
 import { archetypes, type ArchetypeId } from "./archetypes";
 
 const SLOTS = [
-  { label: "Core", key: "core" as const },
-  { label: "Balance", key: "balance" as const },
-  { label: "Inverse", key: "inverse" as const },
+  { label: "Center", key: "core" as const },
+  { label: "Vibe", key: "balance" as const },
+  { label: "Twist", key: "inverse" as const },
 ];
 
 export function buildResultsBreakdown(

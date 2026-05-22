@@ -4,27 +4,28 @@ import { LandingCta } from "@/components/landing-cta";
 
 const THREE_KEYS = [
   {
-    number: "1",
-    title: "CORE",
-    description:
-      "Your main key. The overarching vibe you give off. The thing people feel from you before they can name it.",
-  },
-  {
-    number: "2",
-    title: "BALANCE",
+    title: "CENTER",
     description: (
       <>
-        How your <span className="font-bold">Core</span> gets shaped. The
-        practical lens your dominant key gets filtered through so it lands the
-        way you want it to.
+        Who you <span className="font-bold">really are</span>.
       </>
     ),
   },
   {
-    number: "3",
-    title: "INVERSE",
-    description:
-      "The counterweight giving your brand depth. The unexpected note that keeps your work from feeling one-dimensional.",
+    title: "VIBE",
+    description: (
+      <>
+        What <span className="font-bold">shapes</span> your voice.
+      </>
+    ),
+  },
+  {
+    title: "TWIST",
+    description: (
+      <>
+        The thing <span className="font-bold">no one sees</span> coming.
+      </>
+    ),
   },
 ] as const;
 
@@ -48,12 +49,11 @@ export default function Home() {
             <h1 className="landing-headline uppercase text-storyscore-red">
               STORYSCORE QUIZ
             </h1>
-            <p className="mx-auto mt-4 max-w-[40rem] text-[0.925rem] leading-[1.2] text-storyscore-red sm:mt-5 sm:text-[1.025rem] md:mt-6 md:text-[1.125rem] md:leading-[1.25]">
-              Good stories have good music.{" "}
+            <p className="mx-auto mt-4 max-w-[40rem] text-[0.9375rem] leading-[1.25] text-storyscore-red sm:mt-5 sm:text-[1.175rem] md:mt-6 md:text-[1.3rem] md:leading-[1.35]">
+              Every voice has a chord. Three keys that play together to make you
+              sound like you.{" "}
               <span className="font-bold">STORYSCORE</span>{" "}
-              is designed to find
-              the three keys of your personality to shape your content &amp;
-              communication style into a chord that&apos;s unmistakably yours.
+              defines yours so you stop sounding like everyone else.
             </p>
           </section>
 

@@ -17,9 +17,9 @@ type ResultsPageProps = {
 };
 
 const SLOTS = [
-  { rankLabel: "Core", descriptionKey: "core" as const },
-  { rankLabel: "Balance", descriptionKey: "balance" as const },
-  { rankLabel: "Inverse", descriptionKey: "inverse" as const },
+  { rankLabel: "Center", descriptionKey: "core" as const },
+  { rankLabel: "Vibe", descriptionKey: "balance" as const },
+  { rankLabel: "Twist", descriptionKey: "inverse" as const },
 ];
 
 export async function generateMetadata({
@@ -40,7 +40,7 @@ export async function generateMetadata({
   const inverseArchetype = archetypes[inverse];
 
   const title = `My StoryScore: ${coreArchetype.name} / ${balanceArchetype.name} / ${inverseArchetype.name}`;
-  const description = `I lead with ${coreArchetype.name.toLowerCase()}. I shape my voice through ${balanceArchetype.name.toLowerCase()}. I add depth through ${inverseArchetype.name.toLowerCase()}.`;
+  const description = `My center is ${coreArchetype.name}. My vibe is ${balanceArchetype.name}. My twist is ${inverseArchetype.name}.`;
 
   return {
     title,
@@ -86,8 +86,7 @@ export default async function ResultsPage({ params }: ResultsPageProps) {
               Your STORYSCORE
             </h1>
             <p className="storyscore-results-intro mt-4 max-w-3xl">
-              Your three keys, ranked from dominant to complementary. The chord your
-              content / communication style actually plays.
+              Here&apos;s your chord. Three keys that make you sound like you.
             </p>
           </div>
 

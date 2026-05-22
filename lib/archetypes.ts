@@ -45,9 +45,9 @@ export const archetypes: Record<ArchetypeId, Archetype> = {
       { name: "Jordan Peele", url: "https://en.wikipedia.org/wiki/Jordan_Peele" },
     ],
     descriptions: {
-      core: "You lead with narrative. You make ideas easier to understand by turning them into scenes, moments, examples, and emotional takeaways. People connect with you because you help them feel the point, not just hear it.",
-      balance: "You use stories to support your core voice. Your main key may be more analytical, practical, funny, or strategic, but storytelling helps make it more memorable. It gives your ideas a clearer beginning, middle, and end.",
-      inverse: "You use story to add depth that people may not expect from you at first. You may lead with facts, frameworks, opinions, or action, but storytelling helps people see the human side of your message. It keeps your content from feeling too cold, flat, or disconnected.",
+      core: "You lead by making people feel the meaning before they analyze it. Your mind naturally turns ideas into scenes, examples, tension, and emotional payoff. People trust you because you don't just explain what happened. You help them understand why it mattered.",
+      balance: "Storyteller as Vibe makes your dominant voice more memorable. Whatever your Center is, this adds shape, pacing, and emotional texture so that people can follow the idea rather than just receive information. Your audience feels like they are being pulled into a moment, not handed a point.",
+      inverse: "Storyteller as Twist adds a human layer that people may not expect. You might seem practical, analytical, funny, or direct at first, but then you reveal the scene underneath the idea. That surprise makes your voice feel less flat and more alive.",
     },
   },
   cowboy: {
@@ -61,9 +61,9 @@ export const archetypes: Record<ArchetypeId, Archetype> = {
       { name: "Dolly Parton", url: "https://en.wikipedia.org/wiki/Dolly_Parton" },
     ],
     descriptions: {
-      core: "You lead with care. You make people feel seen, defended, and safe enough to trust what you're saying. People connect with you because your voice feels grounded, protective, and human.",
-      balance: "You use warmth to support your core voice. Your main key may be bold, analytical, artistic, or intense, but the Cowboy helps it feel more approachable. It keeps your message from feeling distant or self-important.",
-      inverse: "You use protection to add heart that people may not expect from you at first. You may lead with critique, strategy, humor, or execution, but this key shows people you're not just trying to be right; you're trying to help. It keeps your content from feeling cold, sharp, or detached.",
+      core: "You lead with protection, warmth, and grounded care. At your foundation, you want people to feel safe enough to listen, grow, and be honest. People trust you because your voice feels human before it feels impressive.",
+      balance: "Cowboy as Vibe softens the way your Center lands. It makes bold ideas feel less intimidating, sharp critiques feel less cruel, and expertise feel more approachable. Your audience feels like you are with them, not above them.",
+      inverse: "Cowboy as Twist reveals the care underneath your strongest moves. People may first notice your humor, strategy, critique, or intensity, then realize you are actually trying to protect something human. That surprise keeps your voice from feeling cold or performative.",
     },
   },
   pirate: {
@@ -77,9 +77,9 @@ export const archetypes: Record<ArchetypeId, Archetype> = {
       { name: "Billie Eilish", url: "https://en.wikipedia.org/wiki/Billie_Eilish" },
     ],
     descriptions: {
-      core: "You lead by challenging the default. You notice the clichés, broken rules, tired formulas, and lazy assumptions other people ignore. People connect with you because you say what others are thinking but are too afraid to say out loud.",
-      balance: "You use disruption to support your core voice. Your main key may be thoughtful, practical, relational, or educational, but the Pirate keeps it from feeling too safe. It gives your ideas tension, edge, and a reason to stand out.",
-      inverse: "You use rebellion to add surprise that people may not expect from you at first. You may lead with clarity, warmth, evidence, or story, but this key helps you challenge the system when needed. It keeps your content from feeling too predictable, polished, or agreeable.",
+      core: "You lead by challenging what everyone else has accepted too easily. You notice the cliché, the fake rule, the lazy formula, and the thing people are afraid to question. People connect with you because you give language to the frustration they have been carrying quietly.",
+      balance: "Pirate as Vibe gives your dominant voice tension and edge. It makes your ideas feel less predictable because there is always a little friction in the way you say things. Your audience feels the push, even when the core message is helpful, warm, or practical.",
+      inverse: "Pirate as Twist adds a rebellious layer that people do not see coming. You may seem clear, kind, structured, or thoughtful at first, but then you suddenly challenge the system behind the conversation. That surprise makes your voice harder to ignore.",
     },
   },
   comedian: {
@@ -93,9 +93,9 @@ export const archetypes: Record<ArchetypeId, Archetype> = {
       { name: "Quinta Brunson", url: "https://en.wikipedia.org/wiki/Quinta_Brunson" },
     ],
     descriptions: {
-      core: "You lead with humor. You use jokes, exaggeration, satire, and absurdity to make the truth easier to see. People connect with you because you can say something honest without making it feel heavy.",
-      balance: "You use humor to support your core voice. Your main key may be strategic, emotional, educational, or critical, but the Comedian makes it more entertaining and easier to share. It helps your ideas land without sounding like a lecture.",
-      inverse: "You use humor to add lightness that people may not expect from you at first. You may lead with depth, facts, action, or leadership, but this key helps people enjoy the ride. It keeps your content from feeling too serious, stiff, or intense.",
+      core: "You lead by making truth easier to face. Humor is not just decoration for you. It is how you reveal what is awkward, broken, obvious, or absurd. People connect with you because you can say the honest thing without making the room feel heavier.",
+      balance: "Comedian as Vibe makes your Center easier to receive and easier to repeat. It lowers people's defenses, gives your ideas rhythm, and turns serious points into something people want to share. Your audience feels entertained, but they also leave with the truth stuck in their head.",
+      inverse: "Comedian as Twist adds a sudden release valve. You may lead with depth, evidence, taste, or direction, then cut through the tension with a line that makes people laugh because it is true. That surprise keeps your voice from becoming too serious or self-important.",
     },
   },
   reporter: {
@@ -109,9 +109,9 @@ export const archetypes: Record<ArchetypeId, Archetype> = {
       { name: "Anderson Cooper", url: "https://en.wikipedia.org/wiki/Anderson_Cooper" },
     ],
     descriptions: {
-      core: "You lead with evidence. You collect facts, examples, receipts, trends, and observations that help people understand what's really happening. People connect with you because your ideas feel researched, grounded, and hard to dismiss.",
-      balance: "You use evidence to support your core voice. Your main key may be emotional, funny, visionary, or strategic, but the Reporter gives it credibility. It helps people trust your ideas because they can see what they're built on.",
-      inverse: "You use reporting to add proof that people may not expect from you at first. You may lead with story, taste, humor, or big ideas, but this key helps you back up what you're saying. It keeps your content from feeling too vague, overly exaggerated, or purely opinionated.",
+      core: "You lead with receipts. You pay attention to facts, examples, patterns, trends, and contradictions that other people miss. People trust you because your voice feels grounded in what is actually happening, not just what you wish were true.",
+      balance: "Reporter as Vibe makes your dominant voice feel more credible. Even when you are leading with emotion, humor, taste, or strategy, there is a sense that your ideas carry weight. Your audience feels like they can trust you because you are not just making claims. You are noticing evidence.",
+      inverse: "Reporter as Twist adds proof where people may expect only personality. You might seem intuitive, funny, artistic, or philosophical at first, then you bring out the receipts. That surprise makes your voice feel sharper, sturdier, and harder to dismiss.",
     },
   },
   guide: {
@@ -125,9 +125,9 @@ export const archetypes: Record<ArchetypeId, Archetype> = {
       { name: "Tabitha Brown", url: "https://en.wikipedia.org/wiki/Tabitha_Brown" },
     ],
     descriptions: {
-      core: "You lead by helping people move forward. You give direction, encouragement, next steps, and a clear path through confusion. People connect with you because you don't just explain the problem; you help them know what to do next.",
-      balance: "You use guidance to support your core voice. Your main key may be creative, analytical, relational, or disruptive, but the Guide turns your ideas into action. It helps people apply what you're saying instead of just agreeing with it.",
-      inverse: "You use guidance to add usefulness that people may not expect from you at first. You may lead with story, humor, critique, or aesthetics, but this key helps people leave with a next step. It keeps your content from feeling interesting but impractical.",
+      core: "You lead by helping people move. You are not satisfied with making something interesting if it leaves people stuck in the same place. People trust you because you turn confusion into a path, and a path into a next step.",
+      balance: "Guide as Vibe makes your dominant voice feel more useful. It gives your ideas direction, momentum, and a sense of \"here is what to do with this.\" Your audience feels helped, not just impressed.",
+      inverse: "Guide as Twist adds practical movement people may not expect. You may lead with story, humor, critique, beauty, or deep thinking, then suddenly hand people a next step. That surprise keeps your voice from feeling interesting but unusable.",
     },
   },
   teacher: {
@@ -141,9 +141,9 @@ export const archetypes: Record<ArchetypeId, Archetype> = {
       { name: "LeVar Burton", url: "https://en.wikipedia.org/wiki/LeVar_Burton" },
     ],
     descriptions: {
-      core: "You lead with clarity. You take ideas that feel messy, confusing, or overwhelming and make them easier to understand. People connect with you because you help them finally \"get it.\"",
-      balance: "You use teaching to support your core voice. Your main key may be emotional, strategic, funny, or bold, but the Teacher helps organize it. It gives your ideas structure, language, and a clearer takeaway.",
-      inverse: "You use clarity to add structure that people may not expect from you at first. You may lead with story, taste, critique, or community, but this key helps people understand what you mean. It keeps your content from feeling scattered, unclear, or hard to follow.",
+      core: "You lead with clarity. You can take something messy, intimidating, or half-understood and make it easier to name, organize, and use. People trust you because you help them finally say, \"Oh, now I get it.\"",
+      balance: "Teacher as Vibe gives your dominant voice structure. It makes emotional ideas easier to process, strategic ideas easier to follow, and bold ideas easier to understand. Your audience feels smarter around you because you give them language for what they were already sensing.",
+      inverse: "Teacher as Twist adds an unexpected moment of clarity. You may seem artistic, funny, rebellious, or relational at first, and then you suddenly explain it in a way that clicks. That surprise makes your voice feel more generous and more useful.",
     },
   },
   connector: {
@@ -157,9 +157,9 @@ export const archetypes: Record<ArchetypeId, Archetype> = {
       { name: "Reese Witherspoon", url: "https://en.wikipedia.org/wiki/Reese_Witherspoon" },
     ],
     descriptions: {
-      core: "You lead by bringing people together. You build relationships, create shared language, and make people feel like they're part of something. People connect with you because your voice feels inviting rather than isolated.",
-      balance: "You use connection to support your core voice. Your main key may be educational, artistic, strategic, or disruptive, but the Connector makes it feel more relational. It helps your ideas feel like a conversation, not just a broadcast.",
-      inverse: "You use community to foster a sense of belonging that people may not expect from you at first. You may lead with facts, frameworks, opinions, or execution, but this key helps people feel included in the work. It keeps your content from feeling too individualistic, transactional, or one-sided.",
+      core: "You lead by creating belonging. You think in relationships, shared language, collaboration, and the feeling of being part of something. People trust you because your voice does not make them feel like spectators. It makes them feel invited.",
+      balance: "Connector as Vibe makes your dominant voice feel more relational. It turns teaching into conversation, strategy into shared mission, and critique into something people can gather around. Your audience feels included in the idea, not talked at from a distance.",
+      inverse: "Connector as Twist adds a communal layer that people may not expect. You might lead with facts, frameworks, taste, execution, or opinion, then suddenly make people feel like they belong inside the work. That surprise keeps your voice from feeling isolated, transactional, or one-sided.",
     },
   },
   artist: {
@@ -173,9 +173,9 @@ export const archetypes: Record<ArchetypeId, Archetype> = {
       { name: "Zendaya", url: "https://en.wikipedia.org/wiki/Zendaya" },
     ],
     descriptions: {
-      core: "You lead with taste. You notice beauty, mood, style, symbolism, and meaning in ways other people might miss. People connect with you because your work doesn't just communicate; it creates a feeling.",
-      balance: "You use artistry to support your core voice. Your main key may be practical, strategic, educational, or relational, but the Artist makes it feel more distinct. It gives your ideas a stronger visual identity, tone, and sense of taste.",
-      inverse: "You use taste to add beauty that people may not expect from you at first. You may lead with facts, systems, humor, or leadership, but this key helps your message feel more crafted. It keeps your content from feeling too plain, generic, or purely functional.",
+      core: "You lead with taste. You notice mood, beauty, symbolism, style, and meaning before other people even know what they are reacting to. People trust you because your work does not just communicate information. It creates a feeling they remember.",
+      balance: "Artist as Vibe makes your dominant voice feel more distinct. It gives your ideas mood, texture, visual identity, and a stronger sense of taste. Your audience feels the difference before they can always explain it.",
+      inverse: "Artist as Twist adds craft where people may expect function. You may lead with systems, clarity, humor, or leadership, then reveal an eye for beauty and interpretation. That surprise makes your voice feel more intentional, more memorable, and less generic.",
     },
   },
   strategist: {
@@ -189,9 +189,9 @@ export const archetypes: Record<ArchetypeId, Archetype> = {
       { name: "Beyoncé", url: "https://en.wikipedia.org/wiki/Beyonc%C3%A9" },
     ],
     descriptions: {
-      core: "You lead with strategy. You see patterns, positioning, plans, and the bigger system behind the work. People connect with you because you help them make smarter decisions, not just better content.",
-      balance: "You use strategy to support your core voice. Your main key may be creative, emotional, relational, or funny, but the Strategist gives it direction. It helps your ideas feel more intentional, useful, and connected to a bigger goal.",
-      inverse: "You use strategy to add intention that people may not expect from you at first. You may lead with story, humor, taste, or care, but this key helps people see the plan underneath it. It keeps your content from feeling random, reactive, or disconnected from outcomes.",
+      core: "You lead by seeing the system behind the moment. You think in terms of positioning, patterns, decisions, trade-offs, and long-term consequences. People trust you because you help them stop reacting and start choosing with intention.",
+      balance: "Strategist as Vibe gives your dominant voice direction. It makes creative ideas feel purposeful, emotional ideas feel focused, and practical ideas feel tied to a larger outcome. Your audience feels like there is a plan underneath what you are saying.",
+      inverse: "Strategist as Twist adds a hidden intention that people may not notice at first. You might lead with humor, story, taste, care, or teaching, then reveal the larger pattern behind it all. That surprise makes your voice feel smarter and more deliberate than people expected.",
     },
   },
   builder: {
@@ -205,9 +205,9 @@ export const archetypes: Record<ArchetypeId, Archetype> = {
       { name: "Mark Rober", url: "https://en.wikipedia.org/wiki/Mark_Rober" },
     ],
     descriptions: {
-      core: "You lead by making things real. You care about execution, process, output, and turning ideas into something people can actually use. People connect with you because you don't just talk about the work; you do the work.",
-      balance: "You use building to support your core voice. Your main key may be strategic, creative, educational, or relational, but the Builder makes it practical. It helps your ideas move from concept to action.",
-      inverse: "You use execution to add follow-through that people may not expect from you at first. You may lead with story, theory, humor, or taste, but this key shows people you can make the idea real. It keeps your content from feeling too abstract, unfinished, or disconnected from reality.",
+      core: "You lead by making things real. You care about process, execution, output, and whether an idea can survive contact with actual work. People trust you because you are not just talking about what could exist. You know how to build it.",
+      balance: "Builder as Vibe makes your dominant voice feel more practical. It gives your ideas a sense of weight, workflow, and follow-through. Your audience feels like what you are saying could actually become something.",
+      inverse: "Builder as Twist adds execution that people may not expect. You might lead with theory, story, humor, taste, or critique, then reveal that you can actually make the thing happen. That surprise keeps your voice from feeling abstract, unfinished, or stuck in idea mode.",
     },
   },
   philosopher: {
@@ -221,9 +221,9 @@ export const archetypes: Record<ArchetypeId, Archetype> = {
       { name: "Kendrick Lamar", url: "https://en.wikipedia.org/wiki/Kendrick_Lamar" },
     ],
     descriptions: {
-      core: "You lead with depth. You ask better questions, challenge easy answers, and look for the meaning underneath the obvious. People connect with you because you help them think more deeply about things they may have taken for granted.",
-      balance: "You use depth to support your core voice. Your main key may be practical, funny, artistic, or relational, but the Philosopher adds nuance. It helps your ideas feel more thoughtful, layered, and worth sitting with.",
-      inverse: "You use philosophy to add depth that people may not expect from you at first. You may lead with action, clarity, humor, or strategy, but this key helps people see the bigger meaning behind the work. It keeps your content from feeling too shallow, rushed, or overly tactical.",
+      core: "You lead with depth. You question easy answers, look underneath the obvious, and search for the meaning behind the work. People trust you because you help them think about familiar things in a more honest and layered way.",
+      balance: "Philosopher as Vibe makes your dominant voice feel more thoughtful. It adds nuance, reflection, and a sense that there is more happening beneath the surface. Your audience feels invited to slow down and think, not just react.",
+      inverse: "Philosopher as Twist adds unexpected depth to what may first look simple. You might lead with action, humor, clarity, strategy, or taste, then reveal the bigger question underneath it. That surprise makes your voice feel more layered and harder to reduce to a quick take.",
     },
   },
 };

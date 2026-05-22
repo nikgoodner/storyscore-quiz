@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import { bodyFont, displayFont } from "@/lib/fonts";
+import { aeonikFonoFont, bodyFont, displayFont } from "@/lib/fonts";
 import "./globals.css";
 
 const siteUrl =
@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${displayFont.variable} ${bodyFont.variable} h-full antialiased`}
+      className={`${displayFont.variable} ${bodyFont.variable} ${aeonikFonoFont.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white font-sans text-black">
         {children}
