@@ -49,12 +49,10 @@ export default function Home() {
               STORYSCORE QUIZ
             </h1>
             <p className="mx-auto mt-4 max-w-[40rem] text-[0.925rem] leading-[1.2] text-storyscore-red sm:mt-5 sm:text-[1.025rem] md:mt-6 md:text-[1.125rem] md:leading-[1.25]">
-              Most personal brands learn to play one key on the piano of their
-              lives. The problem is that it&apos;s boring. And if you don&apos;t
-              get bored hitting that one key and give up, your audience will,
-              too, and leave. This is why you need to learn to play a chord. A
-              combination of keys of your personality that keeps your
-              communication fresh and exciting.
+              Good stories have good music.{" "}
+              <span className="font-bold">STORYSCORE</span> is designed to find
+              the three keys of your personality to shape your content &amp;
+              communication style into a chord that&apos;s unmistakably yours.
             </p>
           </section>
 
