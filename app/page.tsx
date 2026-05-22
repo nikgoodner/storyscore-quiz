@@ -50,7 +50,8 @@ export default function Home() {
             </h1>
             <p className="mx-auto mt-4 max-w-[40rem] text-[0.925rem] leading-[1.2] text-storyscore-red sm:mt-5 sm:text-[1.025rem] md:mt-6 md:text-[1.125rem] md:leading-[1.25]">
               Good stories have good music.{" "}
-              <span className="font-bold">STORYSCORE</span> is designed to find
+              <span className="font-bold">STORYSCORE</span>{" "}
+              is designed to find
               the three keys of your personality to shape your content &amp;
               communication style into a chord that&apos;s unmistakably yours.
             </p>
