@@ -1,4 +1,5 @@
 import { ResultsArchetypeCard } from "@/components/results-archetype-card";
+import { StoryscoreVerticalConnector } from "@/components/storyscore-vertical-connector";
 import type { Archetype, ArchetypeId } from "@/lib/archetypes";
 import { Fragment } from "react";
 
@@ -14,15 +15,6 @@ type ResultsGridProps = {
   fit?: boolean;
 };
 
-function VerticalConnector() {
-  return (
-    <div
-      className="storyscore-vertical-connector mx-auto my-2 h-6 shrink-0"
-      aria-hidden
-    />
-  );
-}
-
 export function ResultsGrid({ ranked, archetypes, fit = false }: ResultsGridProps) {
   return (
     <div className="w-full">
@@ -35,7 +27,7 @@ export function ResultsGrid({ ranked, archetypes, fit = false }: ResultsGridProp
             archetype={archetypes[slot.id]}
             fit={fit}
           />
-          {index < ranked.length - 1 && <VerticalConnector />}
+          {index < ranked.length - 1 && <StoryscoreVerticalConnector />}
         </Fragment>
       ))}
     </div>

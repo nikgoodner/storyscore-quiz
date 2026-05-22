@@ -1,4 +1,5 @@
 import { KeyCard } from "@/components/key-card";
+import { StoryscoreVerticalConnector } from "@/components/storyscore-vertical-connector";
 import { Fragment, type ReactNode } from "react";
 
 type KeyItem = {
@@ -20,15 +21,6 @@ function HorizontalConnector() {
   );
 }
 
-function VerticalConnector() {
-  return (
-    <div
-      className="storyscore-vertical-connector mx-auto my-2 h-6 shrink-0"
-      aria-hidden
-    />
-  );
-}
-
 export function KeyCardsGrid({ keys }: KeyCardsGridProps) {
   return (
     <>
@@ -38,7 +30,7 @@ export function KeyCardsGrid({ keys }: KeyCardsGridProps) {
             <KeyCard number={key.number} title={key.title}>
               {key.description}
             </KeyCard>
-            {index < keys.length - 1 && <VerticalConnector />}
+            {index < keys.length - 1 && <StoryscoreVerticalConnector />}
           </Fragment>
         ))}
       </div>

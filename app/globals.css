@@ -222,17 +222,24 @@ body {
 }
 
 .storyscore-vertical-connector {
+  display: block;
   width: 2px;
+  height: 2.5rem;
+  min-height: 2.5rem;
   flex-shrink: 0;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: transparent;
   background-image: repeating-linear-gradient(
     to bottom,
     var(--storyscore-red) 0,
-    var(--storyscore-red) 4px,
-    transparent 4px,
-    transparent 8px
+    var(--storyscore-red) 5px,
+    transparent 5px,
+    transparent 10px
   );
-  background-size: 2px 8px;
+  background-size: 2px 10px;
   background-repeat: repeat-y;
+  background-position: center top;
 }
 
 /* —— Landing —— */
@@ -244,6 +251,12 @@ body {
   font-weight: 700;
   letter-spacing: var(--landing-headline-tracking);
   line-height: 0.85;
+}
+
+@media (max-width: 639px) {
+  .landing-headline {
+    font-size: clamp(3rem, 14vw, 7.5rem);
+  }
 }
 
 .landing-key-number {
