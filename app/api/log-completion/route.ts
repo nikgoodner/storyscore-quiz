@@ -26,10 +26,10 @@ async function logAnonymousCompletion(
   return notion.pages.create({
     parent: { database_id: databaseId },
     properties: {
-      "Core Archetype": {
+      "Center Archetype": {
         select: { name: archetypes[coreId].name },
       },
-      "Balance Archetype": {
+      "Vibe Archetype": {
         select: { name: archetypes[balanceId].name },
       },
       "Twist Archetype": {

@@ -167,10 +167,10 @@ async function logToNotion(
       "Last Name": {
         rich_text: [{ text: { content: lastName } }],
       },
-      "Core Archetype": {
+      "Center Archetype": {
         select: { name: archetypes[coreId].name },
       },
-      "Balance Archetype": {
+      "Vibe Archetype": {
         select: { name: archetypes[balanceId].name },
       },
       "Twist Archetype": {
