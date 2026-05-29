@@ -67,7 +67,7 @@ export default function QuizPage() {
   };
 
   return (
-    <div className="relative flex min-h-[100dvh] flex-col overflow-x-hidden bg-white pb-24 text-storyscore-red sm:pb-28">
+    <div className="relative flex min-h-full flex-1 flex-col overflow-x-hidden bg-white pb-24 text-storyscore-red sm:pb-28">
       {loading && <PageLoader />}
 
       <QuizProgressHeader

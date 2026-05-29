@@ -12,7 +12,7 @@ export default async function UnsubscribePage({
   const email = rawEmail?.trim();
 
   return (
-    <div className="flex min-h-[100dvh] flex-col overflow-x-hidden bg-white px-5 py-16 text-storyscore-red sm:px-8 sm:py-20">
+    <div className="flex min-h-full flex-1 flex-col overflow-x-hidden bg-white px-5 py-16 text-storyscore-red sm:px-8 sm:py-20">
       <main className="mx-auto w-full max-w-md">
         <Link
           href="/"

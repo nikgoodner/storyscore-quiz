@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { Footer } from "@/components/footer";
 import { aeonikFonoFont, bodyFont, displayFont } from "@/lib/fonts";
 import "./globals.css";
 
@@ -49,8 +50,11 @@ export default function RootLayout({
       lang="en"
       className={`${displayFont.variable} ${bodyFont.variable} ${aeonikFonoFont.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-white font-sans text-black">
-        {children}
+      <body className="bg-white font-sans text-black">
+        <div className="page-wrapper">
+          <main className="main-content">{children}</main>
+          <Footer />
+        </div>
         <Analytics />
       </body>
     </html>

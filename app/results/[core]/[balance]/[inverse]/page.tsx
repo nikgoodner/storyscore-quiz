@@ -66,7 +66,7 @@ export default async function ResultsPage({ params }: ResultsPageProps) {
   ] as const;
 
   return (
-    <div className="relative flex min-h-[100dvh] flex-col overflow-x-hidden bg-white text-storyscore-red">
+    <div className="relative flex min-h-full flex-1 flex-col overflow-x-hidden bg-white text-storyscore-red">
       <ResultsCompletionLogger core={core} balance={balance} inverse={inverse} />
       <header className="absolute left-0 top-0 z-10 px-5 pt-4 sm:px-8 sm:pt-5">
         <a

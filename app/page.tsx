@@ -31,7 +31,7 @@ const THREE_KEYS = [
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-[100dvh] flex-col overflow-x-hidden bg-white text-storyscore-red">
+    <div className="relative flex min-h-full flex-1 flex-col overflow-x-hidden bg-white text-storyscore-red">
       <header className="absolute left-0 top-0 z-10 px-5 pt-5 sm:px-8 sm:pt-6">
         <a
           href="https://www.nikgoodner.com"

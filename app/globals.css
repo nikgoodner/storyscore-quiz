@@ -43,6 +43,24 @@ body {
   font-family: var(--font-storyscore-body), system-ui, sans-serif;
 }
 
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.legal-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .font-display {
   font-family: var(--font-storyscore-display), "Arial Black", Impact, sans-serif;
 }
