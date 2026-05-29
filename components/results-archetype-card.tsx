@@ -44,7 +44,7 @@ export function ResultsArchetypeCard({
                       href={example.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="underline decoration-storyscore-red/40 underline-offset-2 transition-opacity hover:opacity-70"
+                      className="text-storyscore-red underline decoration-storyscore-red underline-offset-2 transition-[text-decoration] hover:decoration-2"
                     >
                       {example.name}
                     </a>
@@ -138,7 +138,7 @@ export function ResultsArchetypeCard({
                     href={example.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline decoration-storyscore-red/40 underline-offset-2 transition-opacity hover:opacity-70"
+                    className="text-storyscore-red underline decoration-storyscore-red underline-offset-2 transition-[text-decoration] hover:decoration-2"
                   >
                     {example.name}
                   </a>

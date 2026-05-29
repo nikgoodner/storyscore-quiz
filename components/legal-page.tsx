@@ -108,13 +108,13 @@ export function LegalPage({ content, title }: LegalPageProps) {
           href="https://www.nikgoodner.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="header-nikgoodner text-lg font-medium leading-none text-[#FF0000] no-underline transition-opacity hover:opacity-70 sm:text-xl md:text-2xl"
+          className="header-nikgoodner text-lg font-medium leading-none text-[#FF0000] no-underline transition-[text-decoration] hover:underline sm:text-xl md:text-2xl"
         >
           @nikgoodner
         </a>
         <a
           href="/"
-          className={`header-take-test ${dmMono.className} text-[11px] font-bold uppercase tracking-[0.1em] text-[#FF0000] no-underline transition-opacity hover:opacity-70 max-[399px]:tracking-[0.05em] sm:text-xs md:text-sm`}
+          className={`header-take-test ${dmMono.className} text-[11px] font-bold uppercase tracking-[0.1em] text-[#FF0000] no-underline transition-[text-decoration] hover:underline max-[399px]:tracking-[0.05em] sm:text-xs md:text-sm`}
         >
           <span className="min-[400px]:hidden">TAKE QUIZ →</span>
           <span className="max-[399px]:hidden">TAKE THE QUIZ →</span>

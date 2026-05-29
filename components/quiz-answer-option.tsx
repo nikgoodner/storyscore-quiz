@@ -1,13 +1,23 @@
 "use client";
 
-import { parseQuizOptionLabel } from "@/lib/parse-quiz-option-label";
+import { QuizOptionText } from "@/lib/prevent-emoji-orphan";
 
 type QuizAnswerOptionProps = {
   label: string;
+  title?: string;
+  description?: string;
+  examples?: string;
+  variant?: "simple" | "rich";
   selected: boolean;
   disabled: boolean;
   onSelect: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
+
+const optionClassName =
+  "quiz-answer-option group/answer flex w-full min-h-11 items-center gap-3.5 rounded-2xl border border-dashed border-storyscore-red bg-white px-4 py-4 text-left text-storyscore-red transition-[background-color,border-color,color] duration-200 ease-out hover:border-solid hover:border-white hover:bg-storyscore-red hover:text-white focus:outline-none active:border-solid active:border-white active:bg-storyscore-red active:text-white disabled:pointer-events-none data-[selected]:border-solid data-[selected]:border-white data-[selected]:bg-storyscore-red data-[selected]:text-white sm:min-h-[3rem] sm:gap-4 sm:px-6 sm:py-5";
+
+const hoverTextTransition =
+  "transition-colors duration-200 ease-out group-hover/answer:text-white group-active/answer:text-white group-data-[selected]/answer:text-white";
 
 function SelectionIndicator() {
   return (
@@ -35,11 +45,15 @@ function SelectionIndicator() {
 
 export function QuizAnswerOption({
   label,
+  title,
+  description,
+  examples,
+  variant = "simple",
   selected,
   disabled,
   onSelect,
 }: QuizAnswerOptionProps) {
-  const { main, examples } = parseQuizOptionLabel(label);
+  const isRich = variant === "rich";
 
   return (
     <button
@@ -47,18 +61,33 @@ export function QuizAnswerOption({
       disabled={disabled}
       onClick={onSelect}
       data-selected={selected ? "" : undefined}
-      className="quiz-answer-option group/answer flex w-full min-h-11 items-center gap-3.5 rounded-2xl border border-dashed border-storyscore-red bg-white px-4 py-4 text-left text-storyscore-red transition-[background-color,border-color,color] duration-200 ease-out hover:border-solid hover:border-white hover:bg-storyscore-red hover:text-white focus:outline-none active:border-solid active:border-white active:bg-storyscore-red active:text-white disabled:pointer-events-none data-[selected]:border-solid data-[selected]:border-white data-[selected]:bg-storyscore-red data-[selected]:text-white sm:min-h-[3rem] sm:gap-4 sm:px-6 sm:py-5"
+      className={optionClassName}
     >
       <SelectionIndicator />
       <span className="min-w-0 flex-1">
-        <span className="block text-[1rem] font-normal leading-[1.35] text-inherit sm:text-[1.0625rem] sm:leading-[1.4]">
-          {main}
-        </span>
-        {examples ? (
-          <span className="font-aeonik-fono mt-1 block text-[0.75rem] font-normal not-italic leading-[1.35] text-storyscore-red/75 transition-colors duration-200 ease-out group-hover/answer:text-white/75 group-active/answer:text-white/75 group-data-[selected]/answer:text-white/75 sm:mt-1.5 sm:text-[0.8125rem]">
-            Examples: {examples}
+        {isRich && title && description && examples ? (
+          <span className="flex flex-col gap-0.5 sm:gap-1">
+            <span
+              className={`font-display block text-[1.625rem] font-bold uppercase leading-[0.92] tracking-[0.01em] text-inherit sm:text-[1.875rem] sm:leading-[0.95] ${hoverTextTransition}`}
+            >
+              {title}
+            </span>
+            <span
+              className={`block text-[0.9375rem] font-normal leading-[1.15] text-inherit sm:text-[1rem] sm:leading-[1.2] ${hoverTextTransition}`}
+            >
+              {description}
+            </span>
+            <span
+              className="font-aeonik-fono block text-[0.6875rem] font-medium leading-[1.15] text-inherit group-hover/answer:text-white/80 group-active/answer:text-white/80 group-data-[selected]/answer:text-white/80 sm:text-[0.75rem]"
+            >
+              {examples}
+            </span>
           </span>
-        ) : null}
+        ) : (
+          <span className="block text-[1rem] font-normal leading-[1.35] text-inherit sm:text-[1.0625rem] sm:leading-[1.4]">
+            <QuizOptionText text={label} />
+          </span>
+        )}
       </span>
     </button>
   );

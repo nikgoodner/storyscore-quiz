@@ -16,7 +16,7 @@ export default async function UnsubscribePage({
       <main className="mx-auto w-full max-w-md">
         <Link
           href="/"
-          className="text-sm font-medium transition-opacity hover:opacity-70"
+          className="text-sm font-medium text-storyscore-red transition-[text-decoration] hover:underline"
         >
           ← STORYSCORE Quiz
         </Link>

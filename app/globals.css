@@ -2,7 +2,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #000000;
+  --foreground: #ff0000;
   --storyscore-red: #ff0000;
   --muted: #4a4a4a;
   --border: #e5e5e5;
@@ -39,7 +39,7 @@ body {
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: var(--storyscore-red);
   font-family: var(--font-storyscore-body), system-ui, sans-serif;
 }
 
@@ -124,8 +124,25 @@ body {
     border-color 0.5s ease-in-out;
 }
 
-.storyscore-interactive:focus {
+.storyscore-interactive::placeholder {
+  color: var(--storyscore-red);
+  opacity: 1;
+  transition: color 0.5s ease-in-out;
+}
+
+.storyscore-interactive:focus,
+.storyscore-interactive:focus-visible {
   outline: none;
+  border-color: #ffffff;
+  border-style: solid;
+  background-color: var(--storyscore-red);
+  color: #ffffff;
+}
+
+.storyscore-interactive:focus::placeholder,
+.storyscore-interactive:focus-visible::placeholder {
+  color: #ffffff;
+  opacity: 1;
 }
 
 @media (hover: hover) {
@@ -134,6 +151,11 @@ body {
     border-style: solid;
     background-color: var(--storyscore-red);
     color: #ffffff;
+  }
+
+  .storyscore-interactive:hover:not(.storyscore-interactive--active)::placeholder {
+    color: #ffffff;
+    opacity: 1;
   }
 }
 
@@ -144,6 +166,11 @@ body {
   color: #ffffff;
 }
 
+.storyscore-interactive--active::placeholder {
+  color: #ffffff;
+  opacity: 1;
+}
+
 /* Quiz answer rows — hover/active invert handled in component (Tailwind group) */
 
 .storyscore-btn-primary {
@@ -151,8 +178,8 @@ body {
   align-items: center;
   justify-content: center;
   border: 1px solid var(--storyscore-red);
-  background-color: var(--storyscore-red);
-  color: #ffffff;
+  background-color: #ffffff;
+  color: var(--storyscore-red);
   font-weight: 500;
   line-height: 1;
   transition:
@@ -163,8 +190,8 @@ body {
 
 @media (hover: hover) {
   .storyscore-btn-primary:hover:not(:disabled) {
-    background-color: #ffffff;
-    color: var(--storyscore-red);
+    background-color: var(--storyscore-red);
+    color: #ffffff;
   }
 }
 

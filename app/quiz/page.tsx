@@ -3,7 +3,9 @@
 import { FloatingHead } from "@/components/floating-head";
 import { PageLoader } from "@/components/page-loader";
 import { QuizAnswerOption } from "@/components/quiz-answer-option";
+import { QuizImageOptions } from "@/components/quiz-image-options";
 import { QuizProgressHeader } from "@/components/quiz-progress-header";
+import { QuizTrueFalseOptions } from "@/components/quiz-true-false-options";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { questions } from "@/lib/questions";
@@ -11,6 +13,19 @@ import { calculateResults } from "@/lib/scoring";
 
 /** Delay after selection before advancing — tweak if feedback feels too fast or slow. */
 const SELECTION_FEEDBACK_MS = 350;
+
+function questionPromptText(question: (typeof questions)[number]): string {
+  return question.type === "truefalse"
+    ? `\u201C${question.text}\u201D`
+    : question.text;
+}
+
+/** Width in `ch` so prompts wrap to ~2 balanced lines without dangling words. */
+function questionPromptMaxWidth(text: string): string {
+  const charCount = text.length;
+  const targetCh = Math.min(36, Math.max(14, Math.ceil(charCount / 2)));
+  return `${targetCh}ch`;
+}
 
 export default function QuizPage() {
   const router = useRouter();
@@ -24,6 +39,9 @@ export default function QuizPage() {
   const total = questions.length;
   const progress = ((currentIndex + 1) / total) * 100;
   const isLast = currentIndex === total - 1;
+  const selectedAnswer = answers[currentIndex];
+  const isImageQuestion = question.type === "image";
+  const isWideTextQuestion = question.id === "q3";
 
   const transitionTo = useCallback((nextIndex: number) => {
     setVisible(false);
@@ -76,43 +94,82 @@ export default function QuizPage() {
         progress={progress}
       />
 
-      <main className="mx-auto flex w-full min-w-0 max-w-2xl flex-1 flex-col justify-center px-5 py-10 sm:px-8 sm:py-16">
+      <main
+        className={`mx-auto flex w-full min-w-0 flex-1 flex-col justify-center px-5 py-10 sm:px-8 sm:py-16 ${
+          isImageQuestion
+            ? "max-w-4xl"
+            : isWideTextQuestion
+              ? "max-w-2xl sm:max-w-3xl"
+              : "max-w-2xl"
+        }`}
+      >
         <div
           className={`transition-opacity duration-300 ease-out ${
             visible ? "animate-fade-in opacity-100" : "opacity-0"
           }`}
         >
-          <p className="storyscore-eyebrow">Question {currentIndex + 1}</p>
-          <h2 className="storyscore-display-xl mt-5 max-w-[36rem] leading-[0.95] sm:mt-6">
-            {question.text}
-          </h2>
+          <header className="mx-auto w-full text-center">
+            <p className="storyscore-eyebrow">Question {currentIndex + 1}</p>
+            <h2
+              className="storyscore-display-xl mx-auto mt-5 text-balance leading-[0.95] sm:mt-6"
+              style={{
+                maxWidth: questionPromptMaxWidth(questionPromptText(question)),
+              }}
+            >
+              {questionPromptText(question)}
+            </h2>
+          </header>
 
-          <ul
-            key={currentIndex}
-            className="mt-7 flex flex-col gap-3 sm:mt-8 sm:gap-4"
-          >
-            {question.options.map((option, index) => {
-              const selectedAnswer = answers[currentIndex];
-              const isSelected = selectedAnswer === index;
-              return (
-                <li key={`${currentIndex}-${option.label}`}>
-                  <QuizAnswerOption
-                    label={option.label}
-                    selected={isSelected}
-                    disabled={isAdvancing}
-                    onSelect={(event) => handleSelect(index, event)}
-                  />
-                </li>
-              );
-            })}
-          </ul>
+          {question.type === "image" && (
+            <QuizImageOptions
+              options={question.options}
+              selectedAnswer={selectedAnswer}
+              disabled={isAdvancing}
+              questionKey={currentIndex}
+              onSelect={handleSelect}
+            />
+          )}
+
+          {question.type === "text" && (
+            <ul
+              key={currentIndex}
+              className="mt-7 flex flex-col gap-3 sm:mt-8 sm:gap-4"
+            >
+              {question.options.map((option, index) => {
+                const isSelected = selectedAnswer === index;
+                const isRichText = question.id === "q1";
+                return (
+                  <li key={`${currentIndex}-${option.label}`}>
+                    <QuizAnswerOption
+                      label={option.label}
+                      title={option.title}
+                      description={option.description}
+                      examples={option.examples}
+                      variant={isRichText ? "rich" : "simple"}
+                      selected={isSelected}
+                      disabled={isAdvancing}
+                      onSelect={(event) => handleSelect(index, event)}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+
+          {question.type === "truefalse" && (
+            <QuizTrueFalseOptions
+              selectedAnswer={selectedAnswer}
+              disabled={isAdvancing}
+              onSelect={handleSelect}
+            />
+          )}
         </div>
 
         {currentIndex > 0 && (
           <button
             type="button"
             onClick={handleBack}
-            className="storyscore-body mt-10 text-sm transition-opacity hover:opacity-70 sm:mt-12"
+            className="storyscore-body mt-10 text-sm text-storyscore-red transition-[text-decoration] hover:underline sm:mt-12"
           >
             ← Previous question
           </button>

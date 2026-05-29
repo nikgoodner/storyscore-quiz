@@ -1,7 +1,8 @@
 "use client";
 
 import type { ArchetypeId } from "@/lib/archetypes";
-import { useState } from "react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
+import { useRef, useState } from "react";
 
 type ResultsActionsProps = {
   core: ArchetypeId;
@@ -17,20 +18,38 @@ export function ResultsActions({
   fit = false,
 }: ResultsActionsProps) {
   const inputClass = fit
-    ? "storyscore-interactive w-full rounded-none px-3 py-2.5 text-sm outline-none"
-    : "storyscore-interactive w-full rounded-none px-4 py-3 text-sm outline-none";
-  const buttonClass = fit
-    ? "storyscore-btn-primary shrink-0 rounded-none px-5 py-2.5 text-sm disabled:opacity-60"
-    : "storyscore-btn-primary shrink-0 rounded-none px-6 py-3 text-sm disabled:opacity-60";
+    ? "storyscore-interactive w-full rounded-none px-3 py-2.5 text-sm text-storyscore-red outline-none transition-[background-color,color,border-color] duration-500 ease-in-out placeholder:text-storyscore-red hover:text-white focus:text-white focus-visible:text-white hover:placeholder:text-white focus:placeholder:text-white focus-visible:placeholder:text-white"
+    : "storyscore-interactive w-full rounded-none px-4 py-3 text-sm text-storyscore-red outline-none transition-[background-color,color,border-color] duration-500 ease-in-out placeholder:text-storyscore-red hover:text-white focus:text-white focus-visible:text-white hover:placeholder:text-white focus:placeholder:text-white focus-visible:placeholder:text-white";
+  const buttonClass =
+    "inline-flex w-full items-center justify-center rounded-none border border-solid border-storyscore-red bg-storyscore-red px-8 py-3 text-sm font-medium text-white transition-[background-color,color,border-color] duration-500 ease-in-out hover:bg-white hover:text-storyscore-red active:bg-white active:text-storyscore-red disabled:cursor-wait disabled:opacity-60 sm:w-auto";
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileError, setTurnstileError] = useState(false);
   const [emailMessage, setEmailMessage] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
+  const turnstileRef = useRef<TurnstileInstance>(null);
+
+  const resetTurnstile = () => {
+    setTurnstileToken(null);
+    setTurnstileError(false);
+    turnstileRef.current?.reset();
+  };
 
   const handleEmail = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    if (!turnstileToken) {
+      setEmailError(
+        turnstileError
+          ? "Verification failed. Please refresh and try again."
+          : "Please complete the verification.",
+      );
+      return;
+    }
+
     setSending(true);
     setEmailMessage(null);
     setEmailError(null);
@@ -46,6 +65,7 @@ export function ResultsActions({
           coreId: core,
           balanceId: balance,
           inverseId: inverse,
+          turnstileToken,
         }),
       });
 
@@ -62,6 +82,7 @@ export function ResultsActions({
     } catch {
       setEmailError("Could not send email. Try again.");
     } finally {
+      resetTurnstile();
       setSending(false);
     }
   };
@@ -71,7 +92,7 @@ export function ResultsActions({
       {emailMessage ? (
         <p className="storyscore-body text-xs">{emailMessage}</p>
       ) : (
-        <form onSubmit={handleEmail} className="flex flex-col gap-2">
+        <form onSubmit={handleEmail} className="relative flex flex-col gap-2">
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <input
               type="text"
@@ -90,23 +111,51 @@ export function ResultsActions({
               className={inputClass}
             />
           </div>
-          <div className="flex flex-col gap-2 sm:flex-row">
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="Email for full breakdown"
-              className={`${inputClass} sm:min-w-0 sm:flex-1`}
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="Email for full breakdown"
+            className={inputClass}
+          />
+          <div
+            style={{
+              position: "absolute",
+              width: "1px",
+              height: "1px",
+              overflow: "hidden",
+              clip: "rect(0, 0, 0, 0)",
+              whiteSpace: "nowrap",
+              border: 0,
+            }}
+            aria-hidden="true"
+          >
+            <Turnstile
+              ref={turnstileRef}
+              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+              onSuccess={(token) => {
+                setTurnstileToken(token);
+                setTurnstileError(false);
+              }}
+              onExpire={() => setTurnstileToken(null)}
+              onError={() => {
+                setTurnstileToken(null);
+                setTurnstileError(true);
+              }}
+              options={{
+                execution: "render",
+                appearance: "execute",
+              }}
             />
-            <button
-              type="submit"
-              disabled={sending}
-              className={buttonClass}
-            >
-              {sending ? "Sending…" : "Email breakdown →"}
-            </button>
           </div>
+          <button
+            type="submit"
+            disabled={sending}
+            className={buttonClass}
+          >
+            {sending ? "Sending…" : "Email breakdown →"}
+          </button>
         </form>
       )}
 

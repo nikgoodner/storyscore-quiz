@@ -11,7 +11,7 @@ export function StoryscoreHeader({ children }: StoryscoreHeaderProps) {
       <div className="mx-auto flex w-full max-w-[min(1100px,96vw)] items-center justify-between gap-4">
         <Link
           href="/"
-          className="text-lg font-medium leading-none text-storyscore-red transition-opacity hover:opacity-70 sm:text-xl"
+          className="text-lg font-medium leading-none text-storyscore-red transition-[text-decoration] hover:underline sm:text-xl"
         >
           STORYSCORE
         </Link>

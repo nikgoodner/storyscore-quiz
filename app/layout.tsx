@@ -50,7 +50,7 @@ export default function RootLayout({
       lang="en"
       className={`${displayFont.variable} ${bodyFont.variable} ${aeonikFonoFont.variable} h-full antialiased`}
     >
-      <body className="bg-white font-sans text-black">
+      <body className="bg-white font-sans text-storyscore-red">
         <div className="page-wrapper">
           <main className="main-content">{children}</main>
           <Footer />

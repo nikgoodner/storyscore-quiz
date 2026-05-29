@@ -16,7 +16,7 @@ export function QuizProgressHeader({
       <div className="mx-auto flex w-full max-w-[min(1100px,96vw)] items-center gap-3 sm:gap-5">
         <Link
           href="/"
-          className="shrink-0 text-base font-medium leading-none text-storyscore-red transition-opacity hover:opacity-70 sm:text-lg"
+          className="shrink-0 text-base font-medium leading-none text-storyscore-red transition-[text-decoration] hover:underline sm:text-lg"
         >
           STORYSCORE
         </Link>

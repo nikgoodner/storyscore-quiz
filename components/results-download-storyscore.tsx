@@ -105,7 +105,7 @@ export function ResultsDownloadStoryscore({
       type="button"
       onClick={() => void handleClick()}
       disabled={loading}
-      className="storyscore-btn-primary w-full rounded-none px-8 py-3 text-sm disabled:cursor-wait disabled:opacity-60 sm:flex-1"
+      className="inline-flex w-full items-center justify-center rounded-none border border-solid border-storyscore-red bg-storyscore-red px-8 py-3 text-sm font-medium text-white transition-[background-color,color,border-color] duration-500 ease-in-out hover:bg-white hover:text-storyscore-red active:bg-white active:text-storyscore-red disabled:cursor-wait disabled:opacity-60 sm:flex-1"
     >
       {loading ? "Generating..." : buttonLabel}
     </button>

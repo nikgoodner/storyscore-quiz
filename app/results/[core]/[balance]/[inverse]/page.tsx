@@ -73,7 +73,7 @@ export default async function ResultsPage({ params }: ResultsPageProps) {
           href="https://www.nikgoodner.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-lg font-medium leading-none transition-opacity hover:opacity-70 sm:text-xl"
+          className="text-lg font-medium leading-none text-storyscore-red transition-[text-decoration] hover:underline sm:text-xl"
         >
           @nikgoodner
         </a>

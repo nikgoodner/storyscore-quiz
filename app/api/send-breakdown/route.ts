@@ -14,7 +14,41 @@ type SendBreakdownRequest = {
   coreId?: string;
   balanceId?: string;
   inverseId?: string;
+  turnstileToken?: string;
 };
+
+async function validateTurnstileToken(
+  token: string,
+  ip?: string,
+): Promise<boolean> {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    console.error("TURNSTILE_SECRET_KEY not configured");
+    return false;
+  }
+
+  const formData = new FormData();
+  formData.append("secret", secret);
+  formData.append("response", token);
+  if (ip) {
+    formData.append("remoteip", ip);
+  }
+
+  try {
+    const response = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        body: formData,
+      },
+    );
+    const data = await response.json();
+    return data.success === true;
+  } catch (error) {
+    console.error("Turnstile validation error:", error);
+    return false;
+  }
+}
 
 function validateBody(body: SendBreakdownRequest) {
   const firstName = body.firstName?.trim();
@@ -198,6 +232,28 @@ export async function POST(request: Request) {
     return NextResponse.json(
       { success: false, error: "Invalid request body." },
       { status: 400 },
+    );
+  }
+
+  const { turnstileToken } = body;
+
+  const ip =
+    request.headers.get("cf-connecting-ip") ??
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    undefined;
+
+  if (!turnstileToken) {
+    return NextResponse.json(
+      { success: false, error: "Verification required" },
+      { status: 400 },
+    );
+  }
+
+  const isValidToken = await validateTurnstileToken(turnstileToken, ip);
+  if (!isValidToken) {
+    return NextResponse.json(
+      { success: false, error: "Verification failed. Please try again." },
+      { status: 403 },
     );
   }
 

@@ -1,159 +1,324 @@
 import type { ArchetypeId } from "./archetypes";
 
+export type QuestionType = "text" | "truefalse" | "image";
+
 export type QuestionOption = {
   label: string;
   scores: Partial<Record<ArchetypeId, number>>;
+  /** Rich text line 2 (Q1) or image alt text */
+  description?: string;
+  /** Rich text line 1 (Q1) — displayed uppercase via PP Formula */
+  title?: string;
+  /** Rich text line 3 (Q1) — Aeonik Fono examples */
+  examples?: string;
+  imageSrc?: string;
 };
 
-export type Question = {
+type BaseQuestion = {
   id: string;
   text: string;
+};
+
+export type TextQuestion = BaseQuestion & {
+  type: "text";
   options: QuestionOption[];
 };
+
+export type ImageQuestion = BaseQuestion & {
+  type: "image";
+  options: QuestionOption[];
+};
+
+export type TrueFalseQuestion = BaseQuestion & {
+  type: "truefalse";
+  trueArchetypes: ArchetypeId[];
+  falseArchetypes: ArchetypeId[];
+};
+
+export type Question = TextQuestion | ImageQuestion | TrueFalseQuestion;
+
+function textOption(label: string, archetype: ArchetypeId): QuestionOption {
+  return {
+    label,
+    scores: { [archetype]: 1 },
+  };
+}
+
+function richTextOption(
+  title: string,
+  archetype: ArchetypeId,
+  description: string,
+  examples: string,
+): QuestionOption {
+  return {
+    label: title,
+    title,
+    description,
+    examples,
+    scores: { [archetype]: 1 },
+  };
+}
+
+function imageOption(
+  label: string,
+  description: string,
+  imageSrc: string,
+  archetype: ArchetypeId,
+): QuestionOption {
+  return {
+    label,
+    description,
+    imageSrc,
+    scores: { [archetype]: 1 },
+  };
+}
 
 export const questions: Question[] = [
   {
     id: "q1",
-    text: "Pick the movie that hits you hardest:",
+    type: "text",
+    text: "Which movie gets you every time?",
     options: [
-      { label: "Someone quietly doing the right thing when nobody's watching. (Hidden Figures, A Beautiful Day in the Neighborhood, Forrest Gump)", scores: { cowboy: 3 } },
-      { label: "A scrappy underdog film where the villain is the system itself. (The Big Short, Erin Brockovich, Moneyball)", scores: { pirate: 3 } },
-      { label: "A weird, beautiful indie that wrecks you by act three. (Past Lives, Manchester by the Sea, Moonlight)", scores: { storyteller: 3 } },
-      { label: "A heist where the team chemistry is the whole point. (Ocean's Eleven, The Italian Job, Logan Lucky)", scores: { connector: 3 } },
-      { label: "A psychological thriller that makes you rethink something you believed. (Arrival, Eternal Sunshine of the Spotless Mind, The Matrix)", scores: { philosopher: 3 } },
-      { label: "A visually stunning piece you'd watch with the sound off. (Blade Runner 2049, The Grand Budapest Hotel, Drive)", scores: { artist: 3 } },
+      richTextOption(
+        "The Quiet Hero",
+        "cowboy",
+        "Someone doing the right thing when no one notices.",
+        "Hidden Figures · A Beautiful Day in the Neighborhood · Forrest Gump",
+      ),
+      richTextOption(
+        "The Underdog vs. the System",
+        "pirate",
+        "A long shot taking on a broken machine.",
+        "The Big Short · Erin Brockovich · Moneyball",
+      ),
+      richTextOption(
+        "The Beautiful Gut Punch",
+        "storyteller",
+        "A slow burn that emotionally wrecks you.",
+        "Past Lives · Manchester by the Sea · Moonlight",
+      ),
+      richTextOption(
+        "The Team-Up",
+        "connector",
+        "A crew whose chemistry is the real story.",
+        "Ocean's Eleven · The Italian Job · Logan Lucky",
+      ),
+      richTextOption(
+        "The Mind-Bender",
+        "teacher",
+        "A story that rearranges how you think.",
+        "Arrival · Eternal Sunshine of the Spotless Mind · The Matrix",
+      ),
+      richTextOption(
+        "The Visual Masterpiece",
+        "artist",
+        "So beautiful you'd watch it on mute.",
+        "Blade Runner 2049 · The Grand Budapest Hotel · Drive",
+      ),
     ],
   },
   {
     id: "q2",
-    text: "You're scrolling LinkedIn. Pick the post that makes you want to throw your phone:",
+    type: "image",
+    text: "Pick your dream workspace:",
     options: [
-      { label: "\"10 things successful people do before 6am\"", scores: { pirate: 3 } },
-      { label: "A 3,000-word think-piece with no headers, no breaks, no visuals", scores: { teacher: 3 } },
-      { label: "\"Just hit $10K MRR! No marketing! AMA 👇\" with zero proof anywhere", scores: { reporter: 3 } },
-      { label: "\"Had to let half my team go to hit growth targets. Here's what I learned 🚀\"", scores: { cowboy: 3 } },
-      { label: "A carousel post with three different fonts and clip art icons", scores: { artist: 3 } },
-      { label: "A confident hot take that's flat wrong, racking up thousands of likes", scores: { philosopher: 3 } },
+      imageOption(
+        "Minimalist white desk",
+        "One notebook, one pen, nothing else",
+        "/quiz-visuals/workspace-strategist.jpg",
+        "strategist",
+      ),
+      imageOption(
+        "Chaotic creative studio",
+        "Paint, instruments, half-finished projects everywhere",
+        "/quiz-visuals/workspace-artist.jpg",
+        "artist",
+      ),
+      imageOption(
+        "Wood-paneled library",
+        "Leather chair, stacks of books, warm lamp",
+        "/quiz-visuals/workspace-philosopher.jpg",
+        "philosopher",
+      ),
+      imageOption(
+        "Maker's bench",
+        "Tools, monitors, sticky notes covering the wall",
+        "/quiz-visuals/workspace-builder.jpg",
+        "builder",
+      ),
+      imageOption(
+        "Outdoor patio table",
+        "Coffee, journal, sunlight",
+        "/quiz-visuals/workspace-cowboy.jpg",
+        "cowboy",
+      ),
+      imageOption(
+        "Industrial loft",
+        "Concrete walls, bold art, vintage equipment",
+        "/quiz-visuals/workspace-pirate.jpg",
+        "pirate",
+      ),
     ],
   },
   {
     id: "q3",
-    text: "It's 11pm on a Tuesday and you can't sleep. You open YouTube. The thumbnail you click is:",
+    type: "text",
+    text: "Pick the LinkedIn post that makes you want to throw your phone:",
     options: [
-      { label: "A two-hour deep dive on something nobody else is covering", scores: { philosopher: 3 } },
-      { label: "A side-by-side product review with charts and numbered scores", scores: { reporter: 3 } },
-      { label: "A \"build with me\" timelapse of someone making something cool", scores: { builder: 3 } },
-      { label: "A cinematic short film with no dialogue", scores: { artist: 3 } },
-      { label: "A standup special that's been on your watch-later for a month", scores: { comedian: 3 } },
-      { label: "A creator you've never heard of telling their origin story", scores: { storyteller: 3 } },
+      textOption("10 Things Successful People Do Before 6am", "pirate"),
+      textOption(
+        "A 3,000-word think-piece with no headers, no breaks, no visuals",
+        "strategist",
+      ),
+      textOption(
+        "Just hit $10K MRR! No marketing! AMA 👇 with zero proof anywhere",
+        "reporter",
+      ),
+      textOption(
+        "Had to let half my team go to hit growth targets. Here's what I learned 🚀",
+        "connector",
+      ),
+      textOption(
+        "A carousel post with three different fonts and clip art icons",
+        "builder",
+      ),
+      textOption(
+        "A confident hot take that's flat wrong, racking up thousands of likes",
+        "philosopher",
+      ),
     ],
   },
   {
     id: "q4",
-    text: "The book on your nightstand that you actually finished is:",
-    options: [
-      { label: "A biography of someone who quietly changed the world. (Just Mercy, Educated)", scores: { cowboy: 3 } },
-      { label: "A manifesto-style book that challenges everything the industry assumes. (Originals, Antifragile)", scores: { pirate: 3 } },
-      { label: "A novel that emotionally wrecked you. (Normal People, The Kite Runner)", scores: { storyteller: 3 } },
-      { label: "A book by a comedian that's funnier than it has any right to be. (Born a Crime, Bossypants)", scores: { comedian: 3 } },
-      { label: "A novel that changed how you see the world. (1984, Brave New World)", scores: { philosopher: 3 } },
-      { label: "A how-to book that became your bible for a year. (Atomic Habits, Deep Work)", scores: { teacher: 3 } },
+    type: "truefalse",
+    text: "I'd rather be respected than liked.",
+    trueArchetypes: [
+      "pirate",
+      "strategist",
+      "philosopher",
+      "reporter",
+      "builder",
+      "teacher",
+    ],
+    falseArchetypes: [
+      "cowboy",
+      "connector",
+      "comedian",
+      "artist",
+      "storyteller",
+      "guide",
     ],
   },
   {
     id: "q5",
-    text: "You inherit $50K with one rule: spend it all on the same kind of thing. Pick the category:",
+    type: "text",
+    text: "How do you actually process a hard week?",
     options: [
-      { label: "Plane tickets to places that change how you see the world", scores: { storyteller: 3 } },
-      { label: "Concerts, dinners, and gatherings with people you love", scores: { connector: 3 } },
-      { label: "A studio space designed exactly the way you want it", scores: { artist: 3 } },
-      { label: "A library's worth of books and a year off to read them", scores: { philosopher: 3 } },
-      { label: "Quietly funding causes nobody else is funding", scores: { cowboy: 3 } },
-      { label: "Conferences and rooms with people way smarter than you", scores: { strategist: 3 } },
+      textOption("Talk it through with someone who knows me well", "cowboy"),
+      textOption(
+        "Tell the story of what happened until I can laugh about it",
+        "storyteller",
+      ),
+      textOption("Step back and ask what I can learn from this", "philosopher"),
+      textOption("Find the pattern so I can avoid it next time", "teacher"),
+      textOption("Make a dark joke about it", "comedian"),
+      textOption("Get back to work. Momentum solves everything.", "builder"),
     ],
   },
   {
     id: "q6",
-    text: "A friend texts you at midnight saying \"I think I need to quit my job.\" You:",
+    type: "text",
+    text: "A friend texts at midnight: 'I need to quit my job.' You:",
     options: [
-      { label: "Immediately call them and let them talk it out", scores: { cowboy: 3 } },
-      { label: "Ask \"okay what's the actual problem here. Let's name it.\"", scores: { philosopher: 3 } },
-      { label: "\"Quit. Life's too short. You'll figure it out.\"", scores: { pirate: 3 } },
-      { label: "\"Send me the spreadsheet. Real numbers, real options.\"", scores: { strategist: 3 } },
-      { label: "\"Send me three concrete next steps you can take tomorrow.\"", scores: { guide: 3 } },
-      { label: "\"Send me a joke first. Now what's actually going on?\"", scores: { comedian: 3 } },
+      textOption("Immediately call them and let them talk it out", "cowboy"),
+      textOption(
+        "Ask 'What's the actual problem here?' Let's name it.",
+        "philosopher",
+      ),
+      textOption("Tell them to quit and figure it out.", "pirate"),
+      textOption(
+        "Send them a spreadsheet with real numbers and real options.",
+        "reporter",
+      ),
+      textOption("Help them identify their next three moves.", "guide"),
+      textOption("Make them laugh. Then get to the real issue.", "comedian"),
     ],
   },
   {
     id: "q7",
-    text: "A friend sends you a half-finished idea for a business. Your first instinct is to:",
-    options: [
-      { label: "Ask what story makes this idea matter to someone", scores: { storyteller: 3 } },
-      { label: "Ask if they've tested it with even one real person", scores: { reporter: 3 } },
-      { label: "Open a doc and start mapping how to actually build it", scores: { builder: 3 } },
-      { label: "Start sketching the brand identity in your head", scores: { artist: 3 } },
-      { label: "Ask who else needs to be in the room for this to work", scores: { connector: 3 } },
-      { label: "Ask what makes it different from everything else out there", scores: { strategist: 3 } },
+    type: "truefalse",
+    text: "I'd rather make something than talk about making something.",
+    trueArchetypes: [
+      "builder",
+      "artist",
+      "strategist",
+      "reporter",
+      "guide",
+      "teacher",
+    ],
+    falseArchetypes: [
+      "storyteller",
+      "connector",
+      "philosopher",
+      "comedian",
+      "cowboy",
+      "pirate",
     ],
   },
   {
     id: "q8",
-    text: "A friend asks you to be their hype person for a big launch. You show up by:",
+    type: "text",
+    text: "A friend is launching something big. You help by:",
     options: [
-      { label: "Making a short video telling the story of why this matters", scores: { storyteller: 3 } },
-      { label: "Writing the killer line they'll use in every pitch from now on", scores: { teacher: 3 } },
-      { label: "Sending them an hour-by-hour day-of plan so they don't have to think", scores: { builder: 3 } },
-      { label: "Designing the announcement so it actually looks good", scores: { artist: 3 } },
-      { label: "Introducing them to the right five people who could change everything", scores: { connector: 3 } },
-      { label: "Hyping them up the night before until they believe it themselves", scores: { guide: 3 } },
+      textOption("Developing a marketing plan", "strategist"),
+      textOption("Crafting a message that sticks", "teacher"),
+      textOption("Building a launch plan that keeps everything moving", "builder"),
+      textOption("Designing an announcement people can't ignore", "artist"),
+      textOption("Opening doors to the right opportunities", "connector"),
+      textOption("Giving them the confidence to go for it", "guide"),
     ],
   },
   {
     id: "q9",
-    text: "It's Sunday morning. You have three free hours and no obligations. You spend them:",
-    options: [
-      { label: "Walking somewhere new with no phone, just thinking", scores: { philosopher: 3 } },
-      { label: "Catching up over coffee with someone you've been missing", scores: { cowboy: 3 } },
-      { label: "Cleaning, organizing, and prepping the week ahead", scores: { strategist: 3 } },
-      { label: "Building or making something just for the fun of it", scores: { builder: 3 } },
-      { label: "Watching something you've been told you HAVE to see", scores: { storyteller: 3 } },
-      { label: "Sketching, photographing, or just noticing beautiful things", scores: { artist: 3 } },
+    type: "truefalse",
+    text: "I'd rather host a dinner than attend one.",
+    trueArchetypes: [
+      "cowboy",
+      "connector",
+      "guide",
+      "comedian",
+      "storyteller",
+      "teacher",
+    ],
+    falseArchetypes: [
+      "pirate",
+      "philosopher",
+      "reporter",
+      "builder",
+      "artist",
+      "strategist",
     ],
   },
   {
     id: "q10",
-    text: "Someone you respect just said something on a panel you think is completely wrong. You:",
-    options: [
-      { label: "Stand up and call it out directly, panel be damned", scores: { pirate: 3 } },
-      { label: "Make a joke that lands the disagreement softly", scores: { comedian: 3 } },
-      { label: "Quietly note your evidence and post a thoughtful rebuttal later", scores: { reporter: 3 } },
-      { label: "Ask a question that lets them realize it themselves", scores: { guide: 3 } },
-      { label: "Write a longer piece working through the nuance they missed", scores: { philosopher: 3 } },
-      { label: "Talk to them after, person to person, because they're not the enemy", scores: { cowboy: 3 } },
-    ],
-  },
-  {
-    id: "q11",
-    text: "The compliment you most love to GIVE somebody else is:",
-    options: [
-      { label: "\"Nobody else could have made me feel that way about it\"", scores: { storyteller: 3 } },
-      { label: "\"You're the most thoughtful person I know\"", scores: { cowboy: 3 } },
-      { label: "\"I love that you don't give a damn what people think\"", scores: { pirate: 3 } },
-      { label: "\"You make me laugh more than anyone\"", scores: { comedian: 3 } },
-      { label: "\"I trust your read more than almost anyone's\"", scores: { reporter: 3 } },
-      { label: "\"I always know what to do after talking to you\"", scores: { guide: 3 } },
-    ],
-  },
-  {
-    id: "q12",
+    type: "text",
     text: "Confession time. Pick the thing you secretly love but won't always admit:",
     options: [
-      { label: "A really good cry from a movie nobody respects", scores: { storyteller: 3 } },
-      { label: "Cheesy motivational content when you need it", scores: { guide: 3 } },
-      { label: "Being a little petty in the group chat", scores: { pirate: 3 } },
-      { label: "A 47-minute YouTube video about something completely random", scores: { philosopher: 3 } },
-      { label: "Reorganizing your apps, files, or workspace for an hour", scores: { strategist: 3 } },
-      { label: "Stalking the aesthetic of brands you'll never actually buy from", scores: { artist: 3 } },
+      textOption("Crying along to a good movie", "storyteller"),
+      textOption("Cheesy motivational content when you need it", "guide"),
+      textOption("Being a little petty in the group chat", "comedian"),
+      textOption(
+        "A 47-minute YouTube video about something completely random",
+        "reporter",
+      ),
+      textOption(
+        "Reorganizing your apps, files, or workspace for an hour",
+        "strategist",
+      ),
+      textOption(
+        "Stalking the aesthetic of brands you'll never actually buy from",
+        "artist",
+      ),
     ],
   },
 ];
